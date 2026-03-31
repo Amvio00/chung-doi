@@ -3,127 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đức Huy & Minh Trân Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Thiệp Cưới Đức Huy & Minh Trân</title>
     <style>
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Playfair Display', serif;
-            background-color: #faf9f6; /* Màu trắng kem nhẹ nhàng */
-            overflow-x: hidden;
+        /* Tông màu Hoa Mộc Xanh: Kem, Xanh lá nhạt, Trắng */
+        :root {
+            --bg-color: #f9fbf7;
+            --text-color: #2d4f1e;
+            --accent-color: #8da67c;
         }
 
-        .main-container {
-            min-height: 100vh;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 40px 20px;
+            min-height: 100vh;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Hiệu ứng giấy mỹ thuật */
         }
 
-        /* --- VẼ LÁ WATERCOLOR BẰNG SVG (KHÔNG LO LỖI ẢNH) --- */
-        .decor-svg {
-            position: absolute;
-            z-index: 1;
-            opacity: 0.15; /* Độ mờ vừa phải để không làm chìm ảnh cưới */
-            pointer-events: none;
-        }
-        .top-right { top: -20px; right: -20px; width: 400px; transform: rotate(15deg); }
-        .bottom-left { bottom: -50px; left: -50px; width: 350px; transform: rotate(195deg); }
-
-        .couple-layout {
-            display: flex;
-            gap: 80px;
-            justify-content: center;
-            align-items: flex-start;
-            position: relative;
-            z-index: 10;
-            max-width: 1100px;
-            width: 100%;
-        }
-
-        .person-block {
-            text-align: center;
-            flex: 1;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: softAppear 2s ease-out forwards;
-        }
-        .codau-block { animation-delay: 0.8s; }
-
-        .img-frame {
+        .invitation-card {
+            width: 90%;
+            max-width: 800px;
             background: white;
-            padding: 12px;
-            box-shadow: 0 15px 45px rgba(74, 93, 74, 0.08); /* Đổ bóng màu xanh lá nhẹ */
-            margin-bottom: 30px;
-            display: inline-block;
+            padding: 40px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 2px;
+            text-align: center;
+            position: relative;
+            border: 1px solid #eee;
+            overflow: hidden;
         }
 
-        .couple-img {
+        /* Họa tiết hoa lá góc thiệp (Style Hoa Mộc) */
+        .invitation-card::before {
+            content: '🌿';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 50px;
+            opacity: 0.3;
+        }
+
+        h2 {
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Bố cục ảnh sát nhau để tạo sự gắn kết */
+        .couple-images {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Khoảng cách nhỏ để bớt xa cách */
+            margin-bottom: 30px;
+        }
+
+        .photo-frame {
+            width: 45%;
+            max-width: 250px;
+            border: 8px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-frame img {
             width: 100%;
-            max-width: 320px;
+            height: auto;
             display: block;
         }
 
-        .role-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            color: #a0a0a0;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
+        .names {
+            font-size: 42px;
+            font-family: 'Georgia', serif;
+            margin: 20px 0;
+            color: var(--text-color);
         }
 
-        .name-text {
-            font-size: 3.2rem;
-            color: #4a5d4a; /* Xanh sẫm đúng yêu cầu */
-            font-weight: 600;
-            margin: 0;
+        .details {
+            font-style: italic;
+            border-top: 1px solid var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
+            display: inline-block;
+            padding: 10px 30px;
+            margin-top: 20px;
         }
 
-        @keyframes softAppear {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .couple-layout { flex-direction: column; align-items: center; gap: 60px; }
-            .top-right { width: 250px; }
-            .bottom-left { width: 200px; }
-            .name-text { font-size: 2.6rem; }
+        /* Tối ưu cho điện thoại */
+        @media (max-width: 600px) {
+            .names { font-size: 32px; }
+            .couple-images { gap: 8px; }
+            .invitation-card { padding: 25px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <svg class="decor-svg top-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#4a5d4a" d="M40,-62.7C52.2,-54.5,62.5,-44.4,69.5,-32.3C76.5,-20.2,80.3,-6.1,78.2,7.5C76,21,68,34,57.7,44.7C47.4,55.5,34.8,63.9,21.1,68.2C7.4,72.5,-7.4,72.7,-21.8,68.8C-36.2,64.9,-50.2,56.9,-60.8,45.4C-71.4,33.9,-78.6,18.9,-79.8,3.5C-81,-11.9,-76.2,-27.7,-66.7,-40.1C-57.2,-52.5,-43,-61.5,-29.4,-68.8C-15.8,-76.1,-2.9,-81.7,9.6,-79.4C22.1,-77.2,40,-62.7,40,-62.7Z" transform="translate(100 100)" />
-    </svg>
-
-    <svg class="decor-svg bottom-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#4a5d4a" d="M36.7,-60.4C47.6,-54.2,56.5,-44.1,62.4,-32.5C68.3,-20.8,71.2,-7.7,70.5,5.3C69.7,18.3,65.3,31.2,57.4,42C49.5,52.8,38.1,61.4,25.4,65.7C12.8,70, -1.1,70,-14.8,66.6C-28.5,63.2,-41.9,56.4,-52.1,46.1C-62.3,35.8,-69.3,22,-71.4,7.4C-73.5,-7.1,-70.7,-22.4,-62.8,-35C-54.9,-47.5,-42,-57.4,-29.1,-62.5C-16.1,-67.6,-3,-67.9,9.6,-65.3C22.2,-62.7,36.7,-60.4,36.7,-60.4Z" transform="translate(100 100)" />
-    </svg>
-
-    <div class="main-container">
-        <div class="couple-layout">
-            
-            <div class="person-block chure-block">
-                <div class="img-frame">
-                    <img src="chure.webp" alt="Đức Huy" class="couple-img">
-                </div>
-                <div class="role-text">Chú Rể</div>
-                <div class="name-text">Đức Huy</div>
+    <div class="invitation-card">
+        <h2>Hân hoan kính báo</h2>
+        
+        <div class="couple-images">
+            <div class="photo-frame">
+                <img src="chu-re.jpg" alt="Chú rể Đức Huy">
+                <p style="font-size: 12px; margin-top: 5px;">CHÚ RỂ</p>
             </div>
-
-            <div class="person-block codau-block">
-                <div class="img-frame">
-                    <img src="codau.webp" alt="Minh Trân" class="couple-img">
-                </div>
-                <div class="role-text">Cô Dâu</div>
-                <div class="name-text">Minh Trân</div>
+            <div class="photo-frame">
+                <img src="co-dau.jpg" alt="Cô dâu Minh Trân">
+                <p style="font-size: 12px; margin-top: 5px;">CÔ DÂU</p>
             </div>
-
         </div>
+
+        <div class="names">
+            Đức Huy & Minh Trân
+        </div>
+
+        <div class="details">
+            Lễ Thành Hôn rạng rỡ niềm vui
+        </div>
+
+        <p style="margin-top: 30px; font-size: 13px; opacity: 0.7;">
+            Sự hiện diện của quý vị là niềm vinh hạnh của gia đình chúng tôi
+        </p>
     </div>
 
 </body>
