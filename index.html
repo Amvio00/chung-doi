@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đức Huy & Minh Trân Wedding | Gấu & Mèo Con</title>
+    <title>Đức Huy & Minh Trân Wedding</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&family=Pattaya&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --bg-fade: #f9fbf7; /* Tông kem xanh nhạt */
-            --dark-green: #30530f; /* Màu xanh lá đậm cho tiêu đề */
+            --bg-fade: #f9fbf7; 
+            --dark-green: #30530f; 
             --warm-pink: #d88a8a; 
             --accent-green: #8da67c;
         }
@@ -21,17 +21,14 @@
             font-family: 'Quicksand', sans-serif;
             color: #4a4a4a;
             background-color: var(--bg-fade);
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            line-height: 1.6;
         }
 
-        /* --- OVERLAY MỞ THIỆP (Sửa lỗi trắng xóa) --- */
+        /* --- OVERLAY MỞ THIỆP --- */
         #wedding-overlay {
             position: fixed;
             inset: 0;
-            background: linear-gradient(rgba(249, 251, 247, 0.8), rgba(249, 251, 247, 0.8)),
-                        url('chure.webp'); /* Hiển thị ảnh chure.webp làm nền mờ */
-            background-size: cover;
-            background-position: center;
+            background: #f9fbf7;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,14 +37,190 @@
         }
 
         .cover-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 50px 30px;
-            width: 85%;
-            max-width: 450px;
-            border-radius: 20px;
+            background: white;
+            padding: 40px 20px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid var(--accent-green);
         }
 
-        .cover
+        .cover-card h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            margin: 10px 0;
+            color: var(--dark-green);
+        }
+
+        .btn-open {
+            background-color: var(--dark-green);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        /* --- NỘI DUNG CHÍNH --- */
+        #main-invitation {
+            display: none; /* Ẩn lúc đầu để tránh lỗi nhảy trang */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 50px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        .name-calligraphy {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--warm-pink);
+        }
+
+        .family-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* --- CẶP ẢNH KẾT NỐI --- */
+        .couple-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .photo-frame {
+            width: 45%;
+            max-width: 180px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .heart-divider {
+            font-size: 1.5rem;
+            color: var(--warm-pink);
+        }
+
+        .time-big {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin: 10px 0;
+        }
+
+        .btn-map {
+            display: inline-block;
+            background: var(--dark-green);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .photo-frame img { height: 180px; }
+            .time-big { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="wedding-overlay">
+        <div class="cover-card">
+            <p style="letter-spacing: 2px; font-size: 0.8rem;">WEDDING INVITATION</p>
+            <h1>Đức Huy & Minh Trân</h1>
+            <p>09 . 05 . 2026</p>
+            <button class="btn-open" onclick="startWedding()">MỞ THIỆP</button>
+        </div>
+    </div>
+
+    <div id="main-invitation">
+        <div class="section" data-aos="fade-up">
+            <h2 style="font-family: 'Pattaya', sans-serif; color: var(--dark-green);">Thông Tin Lễ Cưới</h2>
+            
+            <div class="family-info">
+                <div style="text-align: center;">
+                    <p style="font-weight: 600; color: var(--accent-green);">NHÀ TRAI</p>
+                    <div class="name-calligraphy">Mai Văn Thọ</div>
+                    <div class="name-calligraphy">Vũ Thúy Phượng</div>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-weight: 600; color: var(--accent-green);">NHÀ GÁI</p>
+                    <div class="name-calligraphy">Nguyễn Quốc Hưng</div>
+                    <div class="name-calligraphy">Đoàn Thị Thu Tâm</div>
+                </div>
+            </div>
+
+            <div class="couple-visual" data-aos="zoom-in">
+                <div class="photo-frame">
+                    <img src="chure.webp" alt="Chú rể">
+                </div>
+                <div class="heart-divider">✨</div>
+                <div class="photo-frame">
+                    <img src="codau.webp" alt="Cô dâu">
+                </div>
+            </div>
+
+            <p style="color: #888;">TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA</p>
+            <div class="name-calligraphy" style="font-size: 3rem; color: var(--dark-green);">Đức Huy & Minh Trân</div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <h2 style="font-family: 'Pattaya', sans-serif; color: var(--dark-green);">Tiệc Cưới Tại</h2>
+            <p><strong>PAVILLON TÂN SƠN NHẤT</strong></p>
+            <p style="font-size: 0.9rem;">202 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM</p>
+            
+            <div class="time-big">18:30</div>
+            <p>THỨ BẢY | 09 | THÁNG 05 | 2026</p>
+            
+            <a href="https://maps.app.goo.gl/uXv7VfM6uGzX6L8X8" target="_blank" class="btn-map">XEM BẢN ĐỒ</a>
+        </div>
+
+        <footer style="text-align: center; padding: 40px; color: var(--accent-green); font-style: italic;">
+            Sự hiện diện của quý vị là niềm vinh hạnh cho gia đình chúng tôi!
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        function startWedding() {
+            // Hiệu ứng chuyển cảnh
+            document.getElementById('wedding-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('wedding-overlay').style.display = 'none';
+                const main = document.getElementById('main-invitation');
+                main.style.display = 'block';
+                // Kích hoạt AOS sau khi hiện nội dung
+                AOS.init({ duration: 1000, once: true });
+            }, 800);
+        }
+    </script>
+</body>
+</html>
