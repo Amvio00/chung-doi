@@ -11,7 +11,8 @@
     <style>
         :root {
             --primary-dark: #7a2b2d;
-            --glass-white: rgba(255, 255, 255, 0.85); /* Nền trắng mờ */
+            --glass-white: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để thấy background */
+            --gold-accent: #b28e72; /* Màu vàng mảnh cho viền */
         }
 
         body, html {
@@ -38,36 +39,43 @@
         /* KHUNG THIỆP DẠNG TRẮNG MỜ (GLASSMORPHISM) */
         .glass-card {
             background: var(--glass-white);
-            backdrop-filter: blur(10px); /* Hiệu ứng làm mờ hình nền phía sau */
+            backdrop-filter: blur(10px); /* Hiệu ứng làm mờ background sau */
             -webkit-backdrop-filter: blur(10px);
             padding: 50px 30px;
             width: 85%;
             max-width: 450px;
-            border-radius: 30px; /* Bo góc tròn như hình mẫu */
+            border-radius: 30px; /* Bo góc tròn mảnh như mẫu */
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
         }
 
-        /* HỌA TIẾT GÓC MẢNH NHƯ HÌNH MẪU */
+        /* --- VẼ TRỰC TIẾP HỌA TIẾT VIỀN --- */
         .glass-card::before, .glass-card::after {
             content: "";
             position: absolute;
-            width: 80px;
-            height: 80px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.6;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #c9a78a; /* Màu vàng nâu mờ mảnh */
+            opacity: 0.8;
+            border-radius: 50% / 30px 10px; /* Tạo hình elip mảnh như lá */
         }
+
+        /* Họa tiết góc trên trái */
         .glass-card::before {
-            top: 15px; left: 15px;
-            background-image: url('https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-15.png'); /* Họa tiết lá vàng mảnh */
+            top: 20px; left: 20px;
+            border-right: none;
+            border-bottom: none;
+            transform: rotate(-10deg);
         }
+
+        /* Họa tiết góc dưới phải */
         .glass-card::after {
-            bottom: 15px; right: 15px;
-            transform: rotate(180deg);
-            background-image: url('https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-15.png');
+            bottom: 20px; right: 20px;
+            border-left: none;
+            border-top: none;
+            transform: rotate(170deg);
         }
 
         .icon-heart { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 10px; }
