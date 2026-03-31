@@ -3,147 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đức Huy & Minh Trân Wedding</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <title>Thiệp Cưới Online</title>
     <style>
-        :root {
-            --primary-dark: #7a2b2d;
-            --glass-white: rgba(255, 255, 255, 0.6); 
-            --gold-line: #c4a484;
-        }
-
+        /* Cấu hình nền cho toàn bộ trang */
         body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fff;
-            overflow: hidden; /* Khóa cuộn khi chưa mở thiệp */
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* CANVAS CÁNH HOA */
-        #petal-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* MÀN HÌNH CHÀO */
-        #wedding-overlay {
-            position: fixed; inset: 0;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-            background-image: url('anhbia.jpg'); 
+        .background {
+            background-image: url('anhnen2.jpg'); /* Đảm bảo file này cùng thư mục trên GitHub */
             background-size: cover;
             background-position: center;
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
-        .main-card {
-            width: 85%; max-width: 420px;
-            padding: 10px;
-            border: 1px solid var(--gold-line);
-            border-radius: 25px;
-            background: var(--glass-white);
-            backdrop-filter: blur(12px);
+        /* Container chứa ảnh cô dâu chú rể */
+        .couple-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        /* Định dạng chung cho ảnh */
+        .image-wrapper {
+            opacity: 0; /* Ban đầu ẩn đi */
+            transform: translateY(30px); /* Đẩy xuống một chút để tạo hiệu ứng trượt lên */
+            animation: fadeInUp 2.5s ease-out forwards; /* Chạy animation */
+        }
+
+        .couple-img {
+            width: 250px; /* Bạn có thể điều chỉnh kích thước */
+            height: 350px;
+            object-fit: cover;
+            border-radius: 150px 150px 0 0; /* Tạo hình vòm sang trọng */
+            border: 5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Delay để ảnh chú rể hiện trước hoặc cả hai hiện cùng lúc */
+        .chure {
+            animation-delay: 0.5s;
+        }
+
+        .codau {
+            animation-delay: 1.2s; /* Cô dâu hiện sau một chút tạo sự nhịp nhàng */
+        }
+
+        /* Hiệu ứng Animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Thêm hiệu ứng lấp lánh nhẹ cho chữ */
+        .wedding-title {
+            color: #d4a373;
+            font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 3s ease-in forwards;
         }
 
-        .names {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.3rem;
-            color: #2d3826; 
-            margin: 10px 0;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .btn-open {
-            background-color: var(--primary-dark);
-            color: white; border: none;
-            padding: 13px 50px; border-radius: 30px;
-            font-size: 1rem; cursor: pointer;
-            margin-top: 20px;
-        }
-
-        /* HIỆU ỨNG THOÁT */
-        .stage-exit {
-            opacity: 0 !important;
-            transform: scale(1.1) !important;
-            pointer-events: none;
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            .couple-container {
+                flex-direction: column;
+            }
+            .couple-img {
+                width: 200px;
+                height: 280px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="petal-canvas"></canvas>
+    <div class="background">
+        <h1 class="wedding-title">Our Wedding</h1>
 
-    <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in">
-            <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555;">WEDDING INVITATION</p>
-            <div class="names">Đức Huy</div>
-            <div style="font-family: 'Great Vibes'; font-size: 1.5rem;">&</div>
-            <div class="names">Minh Trân</div>
-            <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
+        <div class="couple-container">
+            <div class="image-wrapper chure">
+                <img src="chure.webp" alt="Chú Rể" class="couple-img">
+                <p style="text-align:center; color: #fff; font-weight: bold;">CHÚ RỂ</p>
+            </div>
+
+            <div class="image-wrapper codau">
+                <img src="codau.webp" alt="Cô Dâu" class="couple-img">
+                <p style="text-align:center; color: #fff; font-weight: bold;">CÔ DÂU</p>
+            </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // 1. Khởi tạo hiệu ứng cánh hoa
-        const canvas = document.getElementById('petal-canvas');
-        const ctx = canvas.getContext('2d');
-        let w, h, petals = [];
-
-        function initCanvas() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-
-        class Petal {
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h - h;
-                this.size = Math.random() * 7 + 5;
-                this.speed = Math.random() * 1 + 1;
-                this.angle = Math.random() * 360;
-                this.spin = Math.random() * 2 - 1;
-            }
-            update() {
-                this.y += this.speed;
-                this.angle += this.spin;
-                if (this.y > h) this.y = -20;
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle * Math.PI / 180);
-                ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 183, 197, 0.8)';
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        for (let i = 0; i < 30; i++) petals.push(new Petal());
-
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
-            petals.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // 2. Logic bấm nút
-        AOS.init();
-        function openWedding() {
-            document.getElementById('wedding-overlay').classList.add('stage-exit');
-            // Dừng tại đây để làm bước tiếp theo
-        }
-    </script>
 </body>
 </html>
