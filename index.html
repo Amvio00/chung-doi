@@ -11,9 +11,9 @@
     <style>
         :root {
             --primary-dark: #7a2b2d;
-            /* GIẢM ĐỘ ĐẬM NỀN XUỐNG CỰC THẤP (0.3) ĐỂ NHÌN XUYÊN THẤU RÕ RÀNG */
-            --glass-white: rgba(255, 255, 255, 0.3); 
-            --gold-line: rgba(196, 164, 132, 0.6);
+            /* GIẢM ĐỘ ĐẬM CỦA NỀN TRẮNG (từ 0.88 xuống 0.6) ĐỂ THẤY RÕ HÌNH SAU */
+            --glass-white: rgba(255, 255, 255, 0.6); 
+            --gold-line: #c4a484;
         }
 
         body, html {
@@ -29,26 +29,27 @@
             background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            transition: 1.2s;
+            transition: 1s;
         }
 
         .main-card {
             position: relative;
             width: 85%;
             max-width: 420px;
-            padding: 8px;
-            /* Viền vàng mảnh mai hơn */
+            padding: 10px;
             border: 1px solid var(--gold-line);
-            border-radius: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
+        /* LỚP NỀN TRONG SUỐT NHÌN XUYÊN THẤU */
         .glass-content {
             background: var(--glass-white);
-            /* GIỮ ĐỘ MỜ NHÒE NHẸ ĐỂ CHỮ KHÔNG BỊ CHÌM VÀO NỀN */
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 50px 20px;
-            border-radius: 25px;
+            /* TĂNG ĐỘ NHÒE (BLUR) ĐỂ TẠO CẢM GIÁC LUNG LINH */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 45px 20px;
+            border-radius: 20px;
             text-align: center;
             position: relative;
             z-index: 2;
@@ -58,48 +59,46 @@
         
         .names {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
+            font-size: 3.3rem;
             color: #2d3826; 
-            margin: 5px 0;
+            margin: 8px 0;
             line-height: 1.1;
-            /* Đổ bóng chữ để dễ đọc trên nền trong suốt */
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5); /* Giúp chữ nổi bật trên nền trong */
         }
 
         .date-text {
             letter-spacing: 4px;
             font-size: 0.9rem;
-            color: #333;
+            color: #444;
             margin: 15px 0;
             border-top: 1px solid rgba(0,0,0,0.1);
             border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 6px 0;
+            padding: 5px 0;
             display: inline-block;
-            font-weight: 600;
         }
 
         .guest-box {
-            background: rgba(122, 43, 45, 0.1);
+            background: rgba(122, 43, 45, 0.12);
             color: var(--primary-dark);
             padding: 10px 25px;
             border-radius: 30px;
             display: inline-block;
-            font-weight: 700;
+            font-weight: 600;
             margin: 20px 0;
             min-width: 180px;
-            border: 0.5px solid rgba(122, 43, 45, 0.15);
+            border: 0.5px solid rgba(122, 43, 45, 0.2);
         }
 
         .btn-open {
             background-color: var(--primary-dark);
             color: white;
             border: none;
-            padding: 14px 55px;
+            padding: 13px 50px;
             border-radius: 30px;
             font-size: 1rem;
             cursor: pointer;
             margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
             transition: 0.3s;
         }
 
@@ -109,24 +108,24 @@
 <body>
 
     <div id="wedding-overlay">
-        <div class="main-card" data-aos="fade-up" data-aos-duration="1500">
+        <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
             <div class="glass-content">
                 <div class="icon-heart">❤</div>
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #444; margin-bottom: 0; font-weight: 700;">WEDDING INVITATION</p>
+                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; margin-bottom: 0; font-weight: 600;">WEDDING INVITATION</p>
                 
                 <div class="names">Đức Huy</div>
-                <div style="font-size: 1.8rem; color: #b28e72; font-family: 'Great Vibes'; margin: -8px 0;">&</div>
+                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes'; margin: -5px 0;">&</div>
                 <div class="names">Minh Trân</div>
                 
                 <div class="date-text">09 . 05 . 2026</div>
                 
-                <p style="font-size: 0.8rem; color: #444; margin-top: 20px; letter-spacing: 1px; font-weight: 700;">THÂN MỜI</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; letter-spacing: 1px; font-weight: 600;">THÂN MỜI</p>
                 
                 <div class="guest-box">
                     Anh Minh Khôi
                 </div>
                 
-                <p style="font-size: 0.85rem; color: #333; line-height: 1.4; font-weight: 600;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+                <p style="font-size: 0.82rem; color: #444; line-height: 1.4; font-weight: 500;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
                 
                 <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
             </div>
@@ -142,11 +141,12 @@
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             overlay.style.opacity = '0';
-            overlay.style.filter = 'blur(20px)';
+            overlay.style.transform = 'scale(1.1)';
             setTimeout(() => {
                 overlay.style.display = 'none';
                 document.getElementById('main-invitation').style.display = 'block';
-            }, 1000);
+                window.scrollTo(0, 0);
+            }, 800);
         }
     </script>
 </body>
