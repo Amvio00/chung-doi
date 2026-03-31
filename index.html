@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đức Huy & Minh Trân Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
+            background-color: #fcfaf8;
         }
 
         .background {
@@ -22,78 +23,78 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .couple-container {
             display: flex;
-            gap: 40px;
+            gap: 60px;
             justify-content: center;
             align-items: flex-start;
-            margin-top: 20px;
         }
 
-        /* Hiệu ứng khung ảnh nghiêng nhẹ giống như ảnh mẫu bạn gửi */
+        /* Hiệu ứng ảnh xuất hiện mượt mà */
         .image-wrapper {
             opacity: 0;
-            transform: translateY(40px) rotate(-3deg);
-            animation: appear 2s ease-out forwards;
+            transform: translateY(30px);
+            animation: softAppear 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             text-align: center;
         }
 
-        .image-wrapper.right {
-            transform: translateY(40px) rotate(3deg);
-            animation-delay: 1s;
-        }
+        .codau { animation-delay: 0.8s; }
 
         .couple-img {
-            width: 280px;
-            height: 400px;
-            object-fit: cover;
-            border: 8px solid white;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            width: 300px;
+            height: auto;
+            border: 10px solid #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        /* Tên cô dâu chú rể */
+        /* Font chữ Tên mới: Sang trọng, có chân, dễ nhìn */
         .name {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: #4a5d4a; /* Màu xanh lá sẫm giống trong ảnh mẫu */
-            margin-top: 15px;
+            font-size: 2.8rem;
+            color: #4a5d4a; /* Màu xanh lá sẫm như ảnh mẫu */
+            font-weight: 600;
+            margin: 5px 0;
+            letter-spacing: 1px;
             opacity: 0;
-            animation: fadeInText 1.5s ease-in forwards;
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 1.5s;
         }
 
-        .chure .name { animation-delay: 1.5s; }
-        .codau .name { animation-delay: 2.5s; }
+        .codau .name { animation-delay: 2.3s; }
 
         .sub-name {
-            font-size: 0.9rem;
-            color: #888;
-            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #8e8e8e;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 1.2s;
         }
 
+        .codau .sub-name { animation-delay: 2s; }
+
         /* Animations */
-        @keyframes appear {
+        @keyframes softAppear {
             to {
                 opacity: 1;
-                transform: translateY(0) rotate(-2deg); /* Giữ độ nghiêng nhẹ cho nghệ thuật */
+                transform: translateY(0);
             }
-        }
-        .right {
-            @keyframes appearRight {
-                to { opacity: 1; transform: translateY(0) rotate(2deg); }
-            }
-            animation-name: appearRight;
         }
 
         @keyframes fadeInText {
             to { opacity: 1; }
         }
 
-        @media (max-width: 600px) {
-            .couple-container { flex-direction: column; align-items: center; }
-            .couple-img { width: 220px; height: 320px; }
+        /* Responsive cho điện thoại */
+        @media (max-width: 768px) {
+            .couple-container { flex-direction: column; gap: 40px; }
+            .couple-img { width: 250px; }
+            .name { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -107,7 +108,7 @@
                 <div class="name">Đức Huy</div>
             </div>
 
-            <div class="image-wrapper right codau">
+            <div class="image-wrapper codau">
                 <img src="codau.webp" alt="Minh Trân" class="couple-img">
                 <div class="sub-name">Cô Dâu</div>
                 <div class="name">Minh Trân</div>
