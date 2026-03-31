@@ -4,117 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đức Huy & Minh Trân Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             overflow-x: hidden;
-            background-color: #fcfaf8;
         }
 
-        .background {
-            background-image: url('anhnen2.jpg');
+        .background-container {
+            /* Sử dụng ảnh nền anhnen2.jpg của bạn */
+            background-image: url('anhnen2.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        .couple-container {
+        .couple-layout {
             display: flex;
-            gap: 60px;
+            gap: 80px;
             justify-content: center;
             align-items: flex-start;
+            max-width: 1100px;
+            width: 100%;
         }
 
-        /* Hiệu ứng ảnh xuất hiện mượt mà */
-        .image-wrapper {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: softAppear 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        /* Khối nội dung từng người */
+        .person-block {
             text-align: center;
+            flex: 1;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: softSlideUp 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        .codau { animation-delay: 0.8s; }
+        .codau-block { animation-delay: 0.8s; }
+
+        /* Khung ảnh trắng tối giản, hiện đại */
+        .img-frame {
+            background: white;
+            padding: 12px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            margin-bottom: 30px;
+            display: inline-block;
+            line-height: 0;
+        }
 
         .couple-img {
-            width: 300px;
+            width: 100%;
+            max-width: 320px;
             height: auto;
-            border: 10px solid #fff;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            object-fit: cover;
         }
 
-        /* Font chữ Tên mới: Sang trọng, có chân, dễ nhìn */
-        .name {
-            font-size: 2.8rem;
-            color: #4a5d4a; /* Màu xanh lá sẫm như ảnh mẫu */
-            font-weight: 600;
-            margin: 5px 0;
-            letter-spacing: 1px;
+        /* Danh xưng Chú Rể / Cô Dâu */
+        .role-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
             opacity: 0;
             animation: fadeInText 1.5s ease-out forwards;
             animation-delay: 1.5s;
         }
 
-        .codau .name { animation-delay: 2.3s; }
+        .codau-block .role-text { animation-delay: 2.3s; }
 
-        .sub-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            color: #8e8e8e;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out forwards;
-            animation-delay: 1.2s;
-        }
-
-        .codau .sub-name { animation-delay: 2s; }
-
-        /* Animations */
-        @keyframes softAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInText {
-            to { opacity: 1; }
-        }
-
-        /* Responsive cho điện thoại */
-        @media (max-width: 768px) {
-            .couple-container { flex-direction: column; gap: 40px; }
-            .couple-img { width: 250px; }
-            .name { font-size: 2.2rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="background">
-        <div class="couple-container">
-            <div class="image-wrapper chure">
-                <img src="chure.webp" alt="Đức Huy" class="couple-img">
-                <div class="sub-name">Chú Rể</div>
-                <div class="name">Đức Huy</div>
-            </div>
-
-            <div class="image-wrapper codau">
-                <img src="codau.webp" alt="Minh Trân" class="couple-img">
-                <div class="sub-name">Cô Dâu</div>
-                <div class="name">Minh Trân</div>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+        /* Tên chính
