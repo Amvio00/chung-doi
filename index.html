@@ -11,8 +11,9 @@
     <style>
         :root {
             --primary-dark: #7a2b2d;
-            --glass-white: rgba(255, 255, 255, 0.88); 
-            --gold-line: #c4a484; /* Màu vàng đồng mảnh */
+            /* GIẢM ĐỘ ĐẬM CỦA NỀN TRẮNG (từ 0.88 xuống 0.6) ĐỂ THẤY RÕ HÌNH SAU */
+            --glass-white: rgba(255, 255, 255, 0.6); 
+            --gold-line: #c4a484;
         }
 
         body, html {
@@ -21,7 +22,6 @@
             background-color: #000;
         }
 
-        /* NỀN SỬ DỤNG ANHBIA.JPG */
         #wedding-overlay {
             position: fixed; inset: 0;
             display: flex; justify-content: center; align-items: center;
@@ -32,34 +32,24 @@
             transition: 1s;
         }
 
-        /* KHUNG THIỆP TỰ VẼ VIỀN (KHÔNG CẦN FILE 4.WEBP) */
         .main-card {
             position: relative;
             width: 85%;
             max-width: 420px;
-            padding: 12px;
-            /* Vẽ viền kép mảnh mai giống mẫu */
+            padding: 10px;
             border: 1px solid var(--gold-line);
             border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
-        /* Thêm một viền phụ bên trong cho sang trọng */
-        .main-card::after {
-            content: "";
-            position: absolute;
-            inset: 5px;
-            border: 0.5px solid rgba(196, 164, 132, 0.4);
-            border-radius: 20px;
-            pointer-events: none;
-        }
-
+        /* LỚP NỀN TRONG SUỐT NHÌN XUYÊN THẤU */
         .glass-content {
             background: var(--glass-white);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* TĂNG ĐỘ NHÒE (BLUR) ĐỂ TẠO CẢM GIÁC LUNG LINH */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 45px 20px;
-            border-radius: 18px;
+            border-radius: 20px;
             text-align: center;
             position: relative;
             z-index: 2;
@@ -73,21 +63,22 @@
             color: #2d3826; 
             margin: 8px 0;
             line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5); /* Giúp chữ nổi bật trên nền trong */
         }
 
         .date-text {
             letter-spacing: 4px;
             font-size: 0.9rem;
-            color: #555;
+            color: #444;
             margin: 15px 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             padding: 5px 0;
             display: inline-block;
         }
 
         .guest-box {
-            background: rgba(122, 43, 45, 0.08);
+            background: rgba(122, 43, 45, 0.12);
             color: var(--primary-dark);
             padding: 10px 25px;
             border-radius: 30px;
@@ -107,11 +98,9 @@
             font-size: 1rem;
             cursor: pointer;
             margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.4);
+            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
             transition: 0.3s;
         }
-
-        .btn-open:hover { transform: scale(1.05); }
 
         #main-invitation { display: none; background: white; min-height: 100vh; }
     </style>
@@ -122,7 +111,7 @@
         <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
             <div class="glass-content">
                 <div class="icon-heart">❤</div>
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #888; margin-bottom: 0;">WEDDING INVITATION</p>
+                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; margin-bottom: 0; font-weight: 600;">WEDDING INVITATION</p>
                 
                 <div class="names">Đức Huy</div>
                 <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes'; margin: -5px 0;">&</div>
@@ -130,13 +119,13 @@
                 
                 <div class="date-text">09 . 05 . 2026</div>
                 
-                <p style="font-size: 0.8rem; color: #999; margin-top: 20px; letter-spacing: 1px;">THÂN MỜI</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; letter-spacing: 1px; font-weight: 600;">THÂN MỜI</p>
                 
                 <div class="guest-box">
                     Anh Minh Khôi
                 </div>
                 
-                <p style="font-size: 0.8rem; color: #777; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+                <p style="font-size: 0.82rem; color: #444; line-height: 1.4; font-weight: 500;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
                 
                 <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
             </div>
@@ -152,7 +141,7 @@
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             overlay.style.opacity = '0';
-            overlay.style.transform = 'translateY(-50px)';
+            overlay.style.transform = 'scale(1.1)';
             setTimeout(() => {
                 overlay.style.display = 'none';
                 document.getElementById('main-invitation').style.display = 'block';
