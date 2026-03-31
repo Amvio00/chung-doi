@@ -7,118 +7,141 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-x: hidden;
-            font-family: 'Playfair Display', serif; /* Font chính cho tên */
-            /* ĐỔI MÀU NỀN SANG MÀU BE CỰC NHẠT (IVORY) ĐỂ LÀM SÁNG ẢNH */
-            background-color: #faf7f2; 
+            margin: 0; padding: 0; height: 100%;
+            overflow: hidden; /* Giữ hiệu ứng hoa rơi trong màn hình */
+            background-color: #faf7f2;
+            font-family: 'Playfair Display', serif;
         }
 
+        /* Container chính */
         .main-container {
-            /* LOẠI BỎ ẢNH NỀN ANHNEN2.JPG ĐỂ KHÔNG BỊ TỐI */
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Bố cục nội dung chính */
-        .couple-content {
+        /* --- HIỆU ỨNG BỤI VÀNG LẤP LÁNH --- */
+        .gold-dust {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: dustMove 20s linear infinite;
+        }
+
+        /* --- HIỆU ỨNG CÁNH HOA/LÁ RƠI --- */
+        .leaf {
+            position: absolute;
+            top: -50px;
+            color: #fff; /* Cánh hoa trắng */
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        .couple-layout {
             display: flex;
-            gap: 80px; /* Khoảng cách giữa hai khối */
+            gap: 100px;
             justify-content: center;
             align-items: flex-start;
-            max-width: 1100px; /* Chiều rộng tối đa */
             width: 100%;
+            max-width: 1200px;
         }
 
-        /* Khối nội dung từng người */
         .person-block {
             text-align: center;
-            flex: 1; /* Chia đều chiều rộng */
-            opacity: 0; /* Ban đầu ẩn để tạo chuyển cảnh */
-            transform: translateY(30px); /* Đẩy xuống một chút */
-            animation: softSlideUp 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; /* Chuyển cảnh xuất hiện */
+            opacity: 0;
+            transform: translateY(40px);
+            animation: appear 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* Delay xuất hiện cho cô dâu */
         .codau-block { animation-delay: 0.8s; }
 
-        /* Khung ảnh trắng tối giản, hiện đại */
+        /* Khung ảnh với hiệu ứng tỏa sáng nhẹ */
         .img-frame {
             background: white;
             padding: 12px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12); /* Bóng đổ mềm */
-            margin-bottom: 30px; /* Khoảng cách giữa ảnh và tên */
+            box-shadow: 0 20px 60px rgba(74, 93, 74, 0.1); /* Bóng màu xanh lá nhạt */
+            margin-bottom: 35px;
             display: inline-block;
-            line-height: 0;
+            position: relative;
         }
 
         .couple-img {
-            width: 100%; /* Chiều rộng tự động đi theo block cha */
-            max-width: 320px; /* Chiều rộng tối đa cho ảnh */
-            height: auto;
-            object-fit: cover;
-            /* LOẠI BỎ MỌI HIỆU ỨNG HÒA TRỘN ĐỂ ẢNH ĐƯỢC SÁNG TRONG TRẺO */
+            width: 100%;
+            max-width: 320px;
+            display: block;
+            filter: contrast(1.05); /* Tăng nhẹ độ tươi cho ảnh */
         }
 
-        /* Danh xưng Chú Rể / Cô Dâu */
         .role-text {
-            font-family: 'Montserrat', sans-serif; /* Font không chân hiện đại */
-            font-size: 0.85rem;
-            color: #888; /* Màu xám mờ tinh tế */
-            letter-spacing: 5px; /* Dãn chữ rộng */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out forwards;
-            animation-delay: 1.5s;
+            margin-bottom: 12px;
         }
 
-        .codau-block .role-text { animation-delay: 2.3s; }
-
-        /* Tên chính - Font Playfair Display sang trọng */
         .name-text {
-            font-size: 3.2rem; /* Kích thước tên lớn, rõ ràng */
-            color: #4a5d4a; /* Màu xanh lá sẫm tinh tế */
-            margin: 0;
+            font-size: 3.5rem;
+            color: #4a5d4a; /* Xanh lá sẫm sang trọng */
             font-weight: 600;
-            letter-spacing: 1px;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out forwards;
-            animation-delay: 1.8s;
+            margin: 0;
         }
-
-        .codau-block .name-text { animation-delay: 2.6s; }
 
         /* Animations */
-        @keyframes softSlideUp {
+        @keyframes appear {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInText {
-            to { opacity: 1; }
+        @keyframes dustMove {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
         }
 
-        /* Responsive cho Mobile */
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
         @media (max-width: 768px) {
-            .couple-content { flex-direction: column; align-items: center; gap: 60px; }
-            .name-text { font-size: 2.5rem; }
+            .couple-layout { flex-direction: column; align-items: center; gap: 50px; }
+            .name-text { font-size: 2.8rem; }
             .couple-img { max-width: 260px; }
+            body { overflow-y: auto; }
         }
     </style>
 </head>
 <body>
 
+    <div class="gold-dust"></div>
+    
+    <script>
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.innerHTML = '🌸'; // Bạn có thể thay bằng 🍃 hoặc ❀
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = Math.random() * 5 + 5 + 's';
+            leaf.style.opacity = Math.random();
+            leaf.style.fontSize = Math.random() * 10 + 10 + 'px';
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 10000);
+        }
+        setInterval(createLeaf, 300);
+    </script>
+
     <div class="main-container">
-        <div class="couple-content">
-            
+        <div class="couple-layout">
             <div class="person-block chure-block">
                 <div class="img-frame">
-                    <img src="chure.webp" alt="Chú Rể Đức Huy" class="couple-img">
+                    <img src="chure.webp" alt="Đức Huy" class="couple-img">
                 </div>
                 <div class="role-text">Chú Rể</div>
                 <div class="name-text">Đức Huy</div>
@@ -126,12 +149,11 @@
 
             <div class="person-block codau-block">
                 <div class="img-frame">
-                    <img src="codau.webp" alt="Cô Dâu Minh Trân" class="couple-img">
+                    <img src="codau.webp" alt="Minh Trân" class="couple-img">
                 </div>
                 <div class="role-text">Cô Dâu</div>
                 <div class="name-text">Minh Trân</div>
             </div>
-
         </div>
     </div>
 
