@@ -1,139 +1,78 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Cưới Đức Huy & Minh Trân</title>
-    <style>
-        /* Tông màu Hoa Mộc Xanh: Kem, Xanh lá nhạt, Trắng */
-        :root {
-            --bg-color: #f9fbf7;
-            --text-color: #2d4f1e;
-            --accent-color: #8da67c;
-        }
+<style>
+    /* CSS Bổ sung để kết nối ảnh cô dâu chú rể */
+    .couple-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px; /* Khoảng cách nhỏ tạo sự gần gũi */
+        margin: 40px auto;
+        max-width: 600px;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Hiệu ứng giấy mỹ thuật */
-        }
+    .photo-frame {
+        flex: 1;
+        max-width: 200px;
+        border: 6px solid #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        transition: transform 0.4s ease;
+    }
 
-        .invitation-card {
-            width: 90%;
-            max-width: 800px;
-            background: white;
-            padding: 40px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 2px;
-            text-align: center;
-            position: relative;
-            border: 1px solid #eee;
-            overflow: hidden;
-        }
+    .photo-frame:nth-child(1) { transform: rotate(-3deg); } /* Chú rể hơi nghiêng về cô dâu */
+    .photo-frame:nth-child(2) { transform: rotate(3deg); }  /* Cô dâu hơi nghiêng về chú rể */
 
-        /* Họa tiết hoa lá góc thiệp (Style Hoa Mộc) */
-        .invitation-card::before {
-            content: '🌿';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            font-size: 50px;
-            opacity: 0.3;
-        }
+    .photo-frame:hover { transform: rotate(0) scale(1.05); z-index: 10; }
 
-        h2 {
-            font-weight: 300;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
+    .photo-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 
-        /* Bố cục ảnh sát nhau để tạo sự gắn kết */
-        .couple-images {
-            display: flex;
-            justify-content: center;
-            gap: 15px; /* Khoảng cách nhỏ để bớt xa cách */
-            margin-bottom: 30px;
-        }
+    /* Tạo biểu tượng kết nối ở giữa 2 ảnh */
+    .heart-divider {
+        font-size: 1.5rem;
+        color: var(--warm-pink);
+        z-index: 5;
+    }
 
-        .photo-frame {
-            width: 45%;
-            max-width: 250px;
-            border: 8px solid #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
+    @media (max-width: 600px) {
+        .photo-frame { max-width: 150px; border-width: 4px; }
+    }
+</style>
 
-        .photo-frame:hover {
-            transform: translateY(-5px);
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .names {
-            font-size: 42px;
-            font-family: 'Georgia', serif;
-            margin: 20px 0;
-            color: var(--text-color);
-        }
-
-        .details {
-            font-style: italic;
-            border-top: 1px solid var(--accent-color);
-            border-bottom: 1px solid var(--accent-color);
-            display: inline-block;
-            padding: 10px 30px;
-            margin-top: 20px;
-        }
-
-        /* Tối ưu cho điện thoại */
-        @media (max-width: 600px) {
-            .names { font-size: 32px; }
-            .couple-images { gap: 8px; }
-            .invitation-card { padding: 25px 15px; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="invitation-card">
-        <h2>Hân hoan kính báo</h2>
+<div id="main-invitation">
+    <div class="section" data-aos="fade-up">
+        <p class="main-title">Thông Tin Lễ Cưới</p>
         
-        <div class="couple-images">
+        <div class="family-info">
+            <div>
+                <p style="letter-spacing: 1px; color: #888;">NHÀ TRAI</p>
+                <div class="name-calligraphy">Mai Văn Thọ</div>
+                <div class="name-calligraphy">Vũ Thúy Phượng</div>
+                <p style="font-size: 0.8rem; color: #666;">Phan Huy Ích, P. Tân Sơn, TP. HCM</p>
+            </div>
+            <div>
+                <p style="letter-spacing: 1px; color: #888;">NHÀ GÁI</p>
+                <div class="name-calligraphy">Nguyễn Quốc Hưng</div>
+                <div class="name-calligraphy">Đoàn Thị Thu Tâm</div>
+                <p style="font-size: 0.8rem; color: #666;">Xã Phước Hậu, Tỉnh Khánh Hoà</p>
+            </div>
+        </div>
+
+        <div class="couple-visual" data-aos="zoom-in" data-aos-delay="300">
             <div class="photo-frame">
                 <img src="chu-re.jpg" alt="Chú rể Đức Huy">
-                <p style="font-size: 12px; margin-top: 5px;">CHÚ RỂ</p>
             </div>
+            <div class="heart-divider">💖</div>
             <div class="photo-frame">
                 <img src="co-dau.jpg" alt="Cô dâu Minh Trân">
-                <p style="font-size: 12px; margin-top: 5px;">CÔ DÂU</p>
             </div>
         </div>
 
-        <div class="names">
-            Đức Huy & Minh Trân
-        </div>
-
-        <div class="details">
-            Lễ Thành Hôn rạng rỡ niềm vui
-        </div>
-
-        <p style="margin-top: 30px; font-size: 13px; opacity: 0.7;">
-            Sự hiện diện của quý vị là niềm vinh hạnh của gia đình chúng tôi
-        </p>
+        <p style="margin: 20px 0 10px; color: #666;">TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA</p>
+        <div class="name-calligraphy" style="font-size: 4.2rem; color: var(--dark-brown);">Đức Huy & Minh Trân</div>
     </div>
 
-</body>
-</html>
+    </div>
