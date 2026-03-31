@@ -7,18 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
             overflow-x: hidden;
+            font-family: 'Playfair Display', serif; /* Font chính cho tên */
+            /* ĐỔI MÀU NỀN SANG MÀU BE CỰC NHẠT (IVORY) ĐỂ LÀM SÁNG ẢNH */
+            background-color: #faf7f2; 
         }
 
-        .background-container {
-            /* SỬ DỤNG ẢNH NỀN LUNG LINH CỦA BẠN */
-            /* Đảm bảo đường dẫn ảnh này chính xác và file nằm cùng thư mục */
-            background-image: url('anhnen2.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        .main-container {
+            /* LOẠI BỎ ẢNH NỀN ANHNEN2.JPG ĐỂ KHÔNG BỊ TỐI */
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,51 +26,51 @@
         }
 
         /* Bố cục nội dung chính */
-        .couple-layout {
+        .couple-content {
             display: flex;
-            gap: 80px;
+            gap: 80px; /* Khoảng cách giữa hai khối */
             justify-content: center;
             align-items: flex-start;
-            max-width: 1100px;
+            max-width: 1100px; /* Chiều rộng tối đa */
             width: 100%;
         }
 
         /* Khối nội dung từng người */
         .person-block {
             text-align: center;
-            flex: 1;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: softSlideUp 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            flex: 1; /* Chia đều chiều rộng */
+            opacity: 0; /* Ban đầu ẩn để tạo chuyển cảnh */
+            transform: translateY(30px); /* Đẩy xuống một chút */
+            animation: softSlideUp 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; /* Chuyển cảnh xuất hiện */
         }
 
+        /* Delay xuất hiện cho cô dâu */
         .codau-block { animation-delay: 0.8s; }
 
         /* Khung ảnh trắng tối giản, hiện đại */
         .img-frame {
             background: white;
             padding: 12px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            margin-bottom: 30px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12); /* Bóng đổ mềm */
+            margin-bottom: 30px; /* Khoảng cách giữa ảnh và tên */
             display: inline-block;
             line-height: 0;
         }
 
         .couple-img {
-            width: 100%;
-            max-width: 320px;
+            width: 100%; /* Chiều rộng tự động đi theo block cha */
+            max-width: 320px; /* Chiều rộng tối đa cho ảnh */
             height: auto;
             object-fit: cover;
-            /* --- KỸ THUẬT BLEND MODE ĐỂ KHÔNG BỊ TỐI --- */
-            mix-blend-mode: multiply; /* Hòa trộn để giữ độ sáng gương mặt */
+            /* LOẠI BỎ MỌI HIỆU ỨNG HÒA TRỘN ĐỂ ẢNH ĐƯỢC SÁNG TRONG TRẺO */
         }
 
         /* Danh xưng Chú Rể / Cô Dâu */
         .role-text {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Font không chân hiện đại */
             font-size: 0.85rem;
-            color: #888;
-            letter-spacing: 5px;
+            color: #888; /* Màu xám mờ tinh tế */
+            letter-spacing: 5px; /* Dãn chữ rộng */
             text-transform: uppercase;
             margin-bottom: 10px;
             opacity: 0;
@@ -81,9 +80,9 @@
 
         .codau-block .role-text { animation-delay: 2.3s; }
 
-        /* Tên chính - Font Playfair Display mới */
+        /* Tên chính - Font Playfair Display sang trọng */
         .name-text {
-            font-size: 3.2rem;
+            font-size: 3.2rem; /* Kích thước tên lớn, rõ ràng */
             color: #4a5d4a; /* Màu xanh lá sẫm tinh tế */
             margin: 0;
             font-weight: 600;
@@ -106,7 +105,7 @@
 
         /* Responsive cho Mobile */
         @media (max-width: 768px) {
-            .couple-layout { flex-direction: column; align-items: center; gap: 60px; }
+            .couple-content { flex-direction: column; align-items: center; gap: 60px; }
             .name-text { font-size: 2.5rem; }
             .couple-img { max-width: 260px; }
         }
@@ -114,8 +113,8 @@
 </head>
 <body>
 
-    <div class="background-container">
-        <div class="couple-layout">
+    <div class="main-container">
+        <div class="couple-content">
             
             <div class="person-block chure-block">
                 <div class="img-frame">
