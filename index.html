@@ -13,25 +13,22 @@
             --primary-dark: #7a2b2d;
             --glass-white: rgba(255, 255, 255, 0.6); 
             --gold-line: #c4a484;
-            --petal-color: rgba(255, 183, 197, 0.8); /* Màu cánh hoa hồng nhạt */
         }
 
         body, html {
             margin: 0; padding: 0; height: 100%;
             font-family: 'Quicksand', sans-serif;
             background-color: #fff;
-            overflow-x: hidden;
+            overflow: hidden; /* Khóa cuộn khi chưa mở thiệp */
         }
 
         /* CANVAS CÁNH HOA */
         #petal-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Không ngăn cản click chuột */
-            z-index: 9999; /* Luôn nằm trên cùng */
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
 
         /* MÀN HÌNH CHÀO */
@@ -39,30 +36,19 @@
             position: fixed; inset: 0;
             display: flex; justify-content: center; align-items: center;
             z-index: 1000;
-            background-image: url('anhbia.jpg'); 
+            background-image: url('anhbia.jpg'); /* Đảm bảo file này có trong thư mục */
             background-size: cover;
             background-position: center;
-            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: opacity, transform;
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
         .main-card {
-            position: relative;
-            width: 85%;
-            max-width: 420px;
+            width: 85%; max-width: 420px;
             padding: 10px;
             border: 1px solid var(--gold-line);
             border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .glass-content {
             background: var(--glass-white);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 45px 20px;
-            border-radius: 20px;
             text-align: center;
         }
 
@@ -70,59 +56,22 @@
             font-family: 'Great Vibes', cursive;
             font-size: 3.3rem;
             color: #2d3826; 
-            margin: 8px 0;
-            line-height: 1.1;
-        }
-
-        .date-text {
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            color: #444;
-            margin: 15px 0;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 5px 0;
-            display: inline-block;
-        }
-
-        .guest-box {
-            background: rgba(122, 43, 45, 0.12);
-            color: var(--primary-dark);
-            padding: 10px 25px;
-            border-radius: 30px;
-            display: inline-block;
-            font-weight: 600;
-            margin: 20px 0;
-            min-width: 180px;
+            margin: 10px 0;
         }
 
         .btn-open {
             background-color: var(--primary-dark);
-            color: white;
-            border: none;
-            padding: 13px 50px;
-            border-radius: 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
+            color: white; border: none;
+            padding: 13px 50px; border-radius: 30px;
+            font-size: 1rem; cursor: pointer;
+            margin-top: 20px;
         }
 
-        #main-invitation { 
-            display: none;
-            opacity: 0; 
-            background: white; 
-            min-height: 100vh;
-            transition: opacity 1.2s ease-out;
-        }
-
+        /* HIỆU ỨNG THOÁT */
         .stage-exit {
             opacity: 0 !important;
             transform: scale(1.1) !important;
             pointer-events: none;
-        }
-
-        .stage-enter {
-            opacity: 1 !important;
         }
     </style>
 </head>
@@ -131,38 +80,18 @@
     <canvas id="petal-canvas"></canvas>
 
     <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
-            <div class="glass-content">
-                <div style="color: var(--primary-dark); font-size: 1.5rem;">❤</div>
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; font-weight: 600;">WEDDING INVITATION</p>
-                
-                <div class="names">Đức Huy</div>
-                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes';">&</div>
-                <div class="names">Minh Trân</div>
-                
-                <div class="date-text">09 . 05 . 2026</div>
-                
-                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; font-weight: 600;">THÂN MỜI</p>
-                
-                <div class="guest-box">Anh Minh Khôi</div>
-                
-                <p style="font-size: 0.82rem; color: #444; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
-                
-                <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
-            </div>
+        <div class="main-card" data-aos="zoom-in">
+            <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555;">WEDDING INVITATION</p>
+            <div class="names">Đức Huy</div>
+            <div style="font-family: 'Great Vibes'; font-size: 1.5rem;">&</div>
+            <div class="names">Minh Trân</div>
+            <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
         </div>
-    </div>
-
-    <div id="main-invitation">
-        <div style="padding: 100px 20px; text-align: center;">
-             <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);">Happy Wedding</h1>
-             <p>Cảm ơn bạn đã tham gia cùng chúng tôi!</p>
-             <div style="height: 1000px;"></div> </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // --- 1. HIỆU ỨNG CÁNH HOA RƠI ---
+        // 1. Khởi tạo hiệu ứng cánh hoa
         const canvas = document.getElementById('petal-canvas');
         const ctx = canvas.getContext('2d');
         let w, h, petals = [];
@@ -171,7 +100,6 @@
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', initCanvas);
         initCanvas();
 
@@ -179,63 +107,42 @@
             constructor() {
                 this.x = Math.random() * w;
                 this.y = Math.random() * h - h;
-                this.size = Math.random() * 8 + 5;
-                this.speed = Math.random() * 1.5 + 1;
+                this.size = Math.random() * 7 + 5;
+                this.speed = Math.random() * 1 + 1;
                 this.angle = Math.random() * 360;
                 this.spin = Math.random() * 2 - 1;
-                this.wind = Math.random() * 1 - 0.5;
             }
             update() {
                 this.y += this.speed;
-                this.x += this.wind;
                 this.angle += this.spin;
-                if (this.y > h) {
-                    this.y = -20;
-                    this.x = Math.random() * w;
-                }
+                if (this.y > h) this.y = -20;
             }
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle * Math.PI / 180);
                 ctx.beginPath();
-                // Vẽ hình elip giả làm cánh hoa
                 ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 192, 203, 0.7)';
+                ctx.fillStyle = 'rgba(255, 183, 197, 0.8)';
                 ctx.fill();
                 ctx.restore();
             }
         }
 
-        for (let i = 0; i < 40; i++) petals.push(new Petal());
+        for (let i = 0; i < 30; i++) petals.push(new Petal());
 
-        function animatePetals() {
+        function animate() {
             ctx.clearRect(0, 0, w, h);
             petals.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animatePetals);
+            requestAnimationFrame(animate);
         }
-        animatePetals();
+        animate();
 
-        // --- 2. LOGIC MỞ THIỆP ---
-        AOS.init({ duration: 1000, once: true });
-
+        // 2. Logic bấm nút
+        AOS.init();
         function openWedding() {
-            const overlay = document.getElementById('wedding-overlay');
-            const mainContent = document.getElementById('main-invitation');
-            
-            overlay.classList.add('stage-exit');
-            mainContent.style.display = 'block';
-            
-            setTimeout(() => {
-                mainContent.classList.add('stage-enter');
-                window.scrollTo(0, 0);
-            }, 100);
-
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                AOS.refresh();
-            }, 1500);
+            document.getElementById('wedding-overlay').classList.add('stage-exit');
+            alert("Đã bấm mở! Tiếp theo mình sẽ code phần hiện ảnh nhé.");
         }
     </script>
 </body>
