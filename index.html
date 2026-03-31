@@ -11,7 +11,6 @@
     <style>
         :root {
             --primary-dark: #7a2b2d;
-            /* GIẢM ĐỘ ĐẬM CỦA NỀN TRẮNG (từ 0.88 xuống 0.6) ĐỂ THẤY RÕ HÌNH SAU */
             --glass-white: rgba(255, 255, 255, 0.6); 
             --gold-line: #c4a484;
         }
@@ -19,9 +18,10 @@
         body, html {
             margin: 0; padding: 0; height: 100%;
             font-family: 'Quicksand', sans-serif;
-            background-color: #000;
+            background-color: #fff; /* Chuyển nền body thành trắng để khớp với nội dung sau */
         }
 
+        /* MÀN HÌNH CHÀO */
         #wedding-overlay {
             position: fixed; inset: 0;
             display: flex; justify-content: center; align-items: center;
@@ -29,7 +29,10 @@
             background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            transition: 1s;
+            /* TĂNG THỜI GIAN VÀ KIỂU CHUYỂN CẢNH */
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        filter 1.2s ease;
         }
 
         .main-card {
@@ -40,12 +43,11 @@
             border: 1px solid var(--gold-line);
             border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            background: transparent;
         }
 
-        /* LỚP NỀN TRONG SUỐT NHÌN XUYÊN THẤU */
         .glass-content {
             background: var(--glass-white);
-            /* TĂNG ĐỘ NHÒE (BLUR) ĐỂ TẠO CẢM GIÁC LUNG LINH */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 45px 20px;
@@ -63,7 +65,7 @@
             color: #2d3826; 
             margin: 8px 0;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.5); /* Giúp chữ nổi bật trên nền trong */
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
         }
 
         .date-text {
@@ -102,7 +104,22 @@
             transition: 0.3s;
         }
 
-        #main-invitation { display: none; background: white; min-height: 100vh; }
+        /* NỘI DUNG CHÍNH */
+        #main-invitation { 
+            opacity: 0; 
+            display: none; 
+            background: white; 
+            min-height: 100vh;
+            transition: opacity 1s ease-in;
+        }
+
+        /* Lớp phủ để làm mờ dần khi chuyển cảnh */
+        .fade-out {
+            opacity: 0 !important;
+            transform: scale(1.05) !important;
+            filter: blur(10px);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -133,20 +150,35 @@
     </div>
 
     <div id="main-invitation">
+        <div style="padding: 100px 20px; text-align: center;">
+            <h1 style="font-family: 'Great Vibes'; font-size: 3rem; color: var(--primary-dark);">Chào mừng bạn đến với tiệc cưới</h1>
+            <p>Nội dung chi tiết sẽ hiện ra ở đây...</p>
         </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
-            overlay.style.opacity = '0';
-            overlay.style.transform = 'scale(1.1)';
+            const mainContent = document.getElementById('main-invitation');
+            
+            // 1. Thêm class để hiệu ứng transition bắt đầu chạy mượt
+            overlay.classList.add('fade-out');
+            
+            // 2. Sau khi hiệu ứng mờ kết thúc (khoảng 800ms)
             setTimeout(() => {
                 overlay.style.display = 'none';
-                document.getElementById('main-invitation').style.display = 'block';
-                window.scrollTo(0, 0);
-            }, 800);
+                
+                // 3. Hiển thị nội dung chính và làm nó hiện dần lên
+                mainContent.style.display = 'block';
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    window.scrollTo(0, 0);
+                    // Khởi động lại AOS để các phần tử trong nội dung chính chạy animation
+                    AOS.refresh();
+                }, 50);
+            }, 1000);
         }
     </script>
 </body>
