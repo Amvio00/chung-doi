@@ -13,6 +13,7 @@
             --primary-dark: #7a2b2d;
             --glass-white: rgba(255, 255, 255, 0.6); 
             --gold-line: #c4a484;
+            --petal-color: rgba(255, 183, 197, 0.8); /* Màu cánh hoa hồng nhạt */
         }
 
         body, html {
@@ -20,6 +21,17 @@
             font-family: 'Quicksand', sans-serif;
             background-color: #fff;
             overflow-x: hidden;
+        }
+
+        /* CANVAS CÁNH HOA */
+        #petal-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Không ngăn cản click chuột */
+            z-index: 9999; /* Luôn nằm trên cùng */
         }
 
         /* MÀN HÌNH CHÀO */
@@ -30,10 +42,9 @@
             background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            /* Transition mượt mà cho cả opacity và transform */
             transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
                         transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: opacity, transform; /* Tối ưu hiệu năng */
+            will-change: opacity, transform;
         }
 
         .main-card {
@@ -44,7 +55,6 @@
             border: 1px solid var(--gold-line);
             border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            transition: transform 1s ease;
         }
 
         .glass-content {
@@ -54,19 +64,14 @@
             padding: 45px 20px;
             border-radius: 20px;
             text-align: center;
-            position: relative;
-            z-index: 2;
         }
 
-        .icon-heart { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 5px; }
-        
         .names {
             font-family: 'Great Vibes', cursive;
             font-size: 3.3rem;
             color: #2d3826; 
             margin: 8px 0;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
         }
 
         .date-text {
@@ -89,7 +94,6 @@
             font-weight: 600;
             margin: 20px 0;
             min-width: 180px;
-            border: 0.5px solid rgba(122, 43, 45, 0.2);
         }
 
         .btn-open {
@@ -100,55 +104,49 @@
             border-radius: 30px;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 15px;
             box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
-            transition: transform 0.3s ease;
         }
-        .btn-open:active { transform: scale(0.9); }
 
-        /* NỘI DUNG CHÍNH - BAN ĐẦU ẨN */
         #main-invitation { 
+            display: none;
             opacity: 0; 
-            visibility: hidden;
             background: white; 
             min-height: 100vh;
             transition: opacity 1.2s ease-out;
         }
 
-        /* Class kích hoạt khi bấm nút */
         .stage-exit {
             opacity: 0 !important;
-            transform: scale(1.1) !important; /* Phóng đại nhẹ khi tan biến */
+            transform: scale(1.1) !important;
             pointer-events: none;
         }
 
         .stage-enter {
             opacity: 1 !important;
-            visibility: visible !important;
         }
     </style>
 </head>
 <body>
 
+    <canvas id="petal-canvas"></canvas>
+
     <div id="wedding-overlay">
         <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
             <div class="glass-content">
-                <div class="icon-heart">❤</div>
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; margin-bottom: 0; font-weight: 600;">WEDDING INVITATION</p>
+                <div style="color: var(--primary-dark); font-size: 1.5rem;">❤</div>
+                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; font-weight: 600;">WEDDING INVITATION</p>
                 
                 <div class="names">Đức Huy</div>
-                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes'; margin: -5px 0;">&</div>
+                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes';">&</div>
                 <div class="names">Minh Trân</div>
                 
                 <div class="date-text">09 . 05 . 2026</div>
                 
-                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; letter-spacing: 1px; font-weight: 600;">THÂN MỜI</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; font-weight: 600;">THÂN MỜI</p>
                 
-                <div class="guest-box">
-                    Anh Minh Khôi
-                </div>
+                <div class="guest-box">Anh Minh Khôi</div>
                 
-                <p style="font-size: 0.82rem; color: #444; line-height: 1.4; font-weight: 500;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+                <p style="font-size: 0.82rem; color: #444; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
                 
                 <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
             </div>
@@ -159,38 +157,84 @@
         <div style="padding: 100px 20px; text-align: center;">
              <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);">Happy Wedding</h1>
              <p>Cảm ơn bạn đã tham gia cùng chúng tôi!</p>
-             </div>
+             <div style="height: 1000px;"></div> </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Khởi tạo AOS với các cài đặt tối ưu
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+        // --- 1. HIỆU ỨNG CÁNH HOA RƠI ---
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, petals = [];
+
+        function initCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        class Petal {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h - h;
+                this.size = Math.random() * 8 + 5;
+                this.speed = Math.random() * 1.5 + 1;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 2 - 1;
+                this.wind = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.y += this.speed;
+                this.x += this.wind;
+                this.angle += this.spin;
+                if (this.y > h) {
+                    this.y = -20;
+                    this.x = Math.random() * w;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle * Math.PI / 180);
+                ctx.beginPath();
+                // Vẽ hình elip giả làm cánh hoa
+                ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 192, 203, 0.7)';
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) petals.push(new Petal());
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, w, h);
+            petals.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // --- 2. LOGIC MỞ THIỆP ---
+        AOS.init({ duration: 1000, once: true });
 
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             const mainContent = document.getElementById('main-invitation');
             
-            // Bước 1: Cho màn hình chào mờ dần và phóng to nhẹ
             overlay.classList.add('stage-exit');
-            
-            // Bước 2: Cho nội dung chính bắt đầu hiện lên ngay lập tức nhưng chậm hơn
             mainContent.style.display = 'block';
             
-            // Dùng setTimeout cực ngắn để trình duyệt nhận diện thay đổi display trước khi chạy hiệu ứng opacity
             setTimeout(() => {
                 mainContent.classList.add('stage-enter');
                 window.scrollTo(0, 0);
             }, 100);
 
-            // Bước 3: Sau khi hiệu ứng hoàn tất, dọn dẹp overlay để không tốn tài nguyên
             setTimeout(() => {
                 overlay.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Cho phép cuộn trang
-                AOS.refresh(); // Cập nhật lại hiệu ứng cho nội dung chính
+                document.body.style.overflow = 'auto';
+                AOS.refresh();
             }, 1500);
         }
     </script>
