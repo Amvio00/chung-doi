@@ -4,148 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đức Huy & Minh Trân Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
-        /* Đảm bảo trang chiếm hết chiều cao màn hình */
+        /* Đảm bảo khung hình luôn hiện */
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow-x: hidden;
-            font-family: 'Playfair Display', serif;
-            background-color: #fcfaf8; /* Màu nền phụ sang trọng khi ảnh chưa tải xong */
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f5f5; /* Nền xám nhạt phòng hờ ảnh lỗi */
         }
 
-        /* Container chứa hình nền và nội dung chính */
-        .main-container {
-            /* SỬ DỤNG ĐÚNG ẢNH NỀN LUNG LINH CỦA BẠN */
-            /* Đảm bảo đường dẫn ảnh này chính xác và file nằm cùng thư mục */
-            background-image: url('anhnen2.jpg'); 
+        .wrapper {
+            /* SỬ DỤNG ẢNH NỀN CỦA BẠN */
+            background-image: url('anhnen2.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative; /* Quan trọng để định vị các lớp sao */
+            padding: 20px;
         }
 
-        /* --- LỚP HIỆU ỨNG SAO LẤP LÁNH ĐỘNG (TWINKLE STARS) --- */
-        /* Nếu lớp này gây lỗi trắng màn hình, hãy tạm thời xóa nó */
-        .stars-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.3) 1px, transparent 10px),
-                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 5px),
-                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 10px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            z-index: 1; /* Nằm dưới nội dung chính */
-            animation: starsTwinkle 15s linear infinite;
-            opacity: 0.6; /* Tăng cường độ rõ của sao */
-        }
-
-        /* --- BỐ CỤC NỘI DUNG CHÍNH --- */
-        .couple-content {
+        .container {
             display: flex;
-            gap: 80px;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
             justify-content: center;
-            align-items: flex-start;
-            max-width: 1100px;
-            width: 100%;
-            position: relative; /* Đảm bảo nằm trên lớp sao */
-            z-index: 2; /* Nằm trên lớp sao */
+            flex-wrap: wrap; /* Tự xuống hàng trên điện thoại */
         }
 
-        /* Khối nội dung từng người */
-        .person-block {
+        .box {
             text-align: center;
-            flex: 1;
-            opacity: 0; /* Ban đầu ẩn để tạo chuyển cảnh */
-            transform: translateY(30px);
-            animation: softAppearUp 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            /* Hiệu ứng hiện ra nhẹ nhàng */
+            animation: fadeIn 2s ease-out forwards;
         }
 
-        /* Delay xuất hiện cho cô dâu */
-        .codau-block { animation-delay: 0.8s; }
+        .box-cd { animation-delay: 0.8s; opacity: 0; }
 
-        /* Khung ảnh trắng tối giản, hiện đại */
-        .img-frame {
-            background: white;
-            padding: 12px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            margin-bottom: 30px;
+        .frame {
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
             display: inline-block;
-            line-height: 0;
-            max-width: 100%; /* Giảm kích thước khung trên mobile */
         }
 
-        .couple-img {
-            width: 100%;
-            max-width: 320px;
+        .img {
+            width: 280px; /* Độ rộng ảnh */
             height: auto;
-            object-fit: cover;
+            display: block;
         }
 
-        /* Danh xưng Chú Rể / Cô Dâu */
-        .role-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            color: #888;
-            letter-spacing: 5px;
+        .label {
+            font-size: 0.9rem;
+            color: #666;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out forwards;
-            animation-delay: 1.5s;
+            margin-bottom: 5px;
         }
 
-        .codau-block .role-text { animation-delay: 2.3s; }
-
-        /* Tên chính - Font Playfair Display mới */
-        .name-text {
-            font-size: 3.2rem; /* Tăng kích thước tên thêm chút nữa */
-            color: #4a5d4a; /* Màu xanh lá sẫm tinh tế */
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #4a5d4a; /* Màu xanh sẫm */
             margin: 0;
-            font-weight: 600;
-            letter-spacing: 1px;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out forwards;
-            animation-delay: 1.8s;
         }
 
-        .codau-block .name-text { animation-delay: 2.6s; }
-
-        /* Animations */
-        @keyframes softAppearUp {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInText {
-            to { opacity: 1; }
-        }
-
-        @keyframes starsTwinkle {
-            from { background-position: 0 0, 40px 60px, 130px 270px; }
-            to { background-position: 550px 550px, 390px 410px, 380px 520px; }
-        }
-
-        /* Responsive cho Mobile */
-        @media (max-width: 768px) {
-            .couple-content { flex-direction: column; align-items: center; gap: 60px; }
-            .couple-img { max-width: 260px; }
-            .name-text { font-size: 2.5rem; }
+        /* Mobile */
+        @media (max-width: 600px) {
+            .img { width: 220px; }
+            .name { font-size: 2.2rem; }
+            .container { gap: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        
-        <div class="stars-overlay"></div>
-
-        <div class="couple-content">
+    <div class="wrapper">
+        <div class="container">
             
-            <div class="person
+            <div class="box box-cr">
+                <div class="frame">
+                    <img src="chure.webp" alt="Chú Rể" class="img">
+                </div>
+                <div class="label">Chú Rể</div>
+                <div class="name">Đức Huy</div>
+            </div>
+
+            <div class="box box-cd">
+                <div class="frame">
+                    <img src="codau.webp" alt="Cô Dâu" class="img">
+                </div>
+                <div class="label">Cô Dâu</div>
+                <div class="name">Minh Trân</div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
