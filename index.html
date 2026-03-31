@@ -4,108 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đức Huy & Minh Trân Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* Đảm bảo khung hình luôn hiện */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f5f5; /* Nền xám nhạt phòng hờ ảnh lỗi */
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
         }
 
-        .wrapper {
-            /* SỬ DỤNG ẢNH NỀN CỦA BẠN */
-            background-image: url('anhnen2.jpg');
+        .background-container {
+            /* SỬ DỤNG ẢNH NỀN LUNG LINH CỦA BẠN */
+            /* Đảm bảo đường dẫn ảnh này chính xác và file nằm cùng thư mục */
+            background-image: url('anhnen2.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            display: flex;
-            gap: 40px;
-            max-width: 1000px;
-            width: 100%;
             justify-content: center;
-            flex-wrap: wrap; /* Tự xuống hàng trên điện thoại */
+            padding: 40px 20px;
         }
 
-        .box {
+        /* Bố cục nội dung chính */
+        .couple-layout {
+            display: flex;
+            gap: 80px;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* Khối nội dung từng người */
+        .person-block {
             text-align: center;
-            /* Hiệu ứng hiện ra nhẹ nhàng */
-            animation: fadeIn 2s ease-out forwards;
+            flex: 1;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: softSlideUp 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        .box-cd { animation-delay: 0.8s; opacity: 0; }
+        .codau-block { animation-delay: 0.8s; }
 
-        .frame {
-            background: #fff;
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        /* Khung ảnh trắng tối giản, hiện đại */
+        .img-frame {
+            background: white;
+            padding: 12px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            margin-bottom: 30px;
             display: inline-block;
+            line-height: 0;
         }
 
-        .img {
-            width: 280px; /* Độ rộng ảnh */
+        .couple-img {
+            width: 100%;
+            max-width: 320px;
             height: auto;
-            display: block;
+            object-fit: cover;
+            /* --- KỸ THUẬT BLEND MODE ĐỂ KHÔNG BỊ TỐI --- */
+            mix-blend-mode: multiply; /* Hòa trộn để giữ độ sáng gương mặt */
         }
 
-        .label {
-            font-size: 0.9rem;
-            color: #666;
-            letter-spacing: 3px;
+        /* Danh xưng Chú Rể / Cô Dâu */
+        .role-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 1.5s;
         }
 
-        .name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: #4a5d4a; /* Màu xanh sẫm */
+        .codau-block .role-text { animation-delay: 2.3s; }
+
+        /* Tên chính - Font Playfair Display mới */
+        .name-text {
+            font-size: 3.2rem;
+            color: #4a5d4a; /* Màu xanh lá sẫm tinh tế */
             margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 1.8s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        .codau-block .name-text { animation-delay: 2.6s; }
+
+        /* Animations */
+        @keyframes softSlideUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobile */
-        @media (max-width: 600px) {
-            .img { width: 220px; }
-            .name { font-size: 2.2rem; }
-            .container { gap: 20px; }
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        /* Responsive cho Mobile */
+        @media (max-width: 768px) {
+            .couple-layout { flex-direction: column; align-items: center; gap: 60px; }
+            .name-text { font-size: 2.5rem; }
+            .couple-img { max-width: 260px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="container">
+    <div class="background-container">
+        <div class="couple-layout">
             
-            <div class="box box-cr">
-                <div class="frame">
-                    <img src="chure.webp" alt="Chú Rể" class="img">
+            <div class="person-block chure-block">
+                <div class="img-frame">
+                    <img src="chure.webp" alt="Chú Rể Đức Huy" class="couple-img">
                 </div>
-                <div class="label">Chú Rể</div>
-                <div class="name">Đức Huy</div>
+                <div class="role-text">Chú Rể</div>
+                <div class="name-text">Đức Huy</div>
             </div>
 
-            <div class="box box-cd">
-                <div class="frame">
-                    <img src="codau.webp" alt="Cô Dâu" class="img">
+            <div class="person-block codau-block">
+                <div class="img-frame">
+                    <img src="codau.webp" alt="Cô Dâu Minh Trân" class="couple-img">
                 </div>
-                <div class="label">Cô Dâu</div>
-                <div class="name">Minh Trân</div>
+                <div class="role-text">Cô Dâu</div>
+                <div class="name-text">Minh Trân</div>
             </div>
 
         </div>
