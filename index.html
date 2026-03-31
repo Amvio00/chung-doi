@@ -8,134 +8,102 @@
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
-            overflow: hidden; /* Giữ hiệu ứng hoa rơi trong màn hình */
-            background-color: #faf7f2;
             font-family: 'Playfair Display', serif;
+            background-color: #ffffff; /* Nền trắng trong trẻo */
+            overflow-x: hidden;
         }
 
-        /* Container chính */
+        /* Container chính với họa tiết hoa lá ở góc */
         .main-container {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            z-index: 10;
+            padding: 40px 20px;
+            /* Giả lập họa tiết hoa lá góc bằng gradient và mask hoặc bạn có thể thay bằng ảnh thật */
+            background: 
+                radial-gradient(circle at top right, rgba(74, 93, 74, 0.05), transparent 400px),
+                radial-gradient(circle at bottom left, rgba(74, 93, 74, 0.05), transparent 400px);
         }
 
-        /* --- HIỆU ỨNG BỤI VÀNG LẤP LÁNH --- */
-        .gold-dust {
+        /* Họa tiết lá xanh trang trí góc (giả lập phong cách watercolor) */
+        .decoration {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(212,175,55,0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: dustMove 20s linear infinite;
-        }
-
-        /* --- HIỆU ỨNG CÁNH HOA/LÁ RƠI --- */
-        .leaf {
-            position: absolute;
-            top: -50px;
-            color: #fff; /* Cánh hoa trắng */
-            user-select: none;
+            z-index: 1;
+            opacity: 0.6;
             pointer-events: none;
-            animation: fall linear infinite;
         }
+        .top-right { top: 0; right: 0; width: 300px; }
+        .bottom-left { bottom: 0; left: 0; width: 250px; transform: rotate(180deg); }
 
         .couple-layout {
             display: flex;
-            gap: 100px;
+            gap: 80px;
             justify-content: center;
             align-items: flex-start;
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
             width: 100%;
-            max-width: 1200px;
         }
 
         .person-block {
             text-align: center;
+            flex: 1;
             opacity: 0;
-            transform: translateY(40px);
-            animation: appear 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform: translateY(30px);
+            animation: softAppear 2s ease-out forwards;
         }
+        .codau-block { animation-delay: 0.6s; }
 
-        .codau-block { animation-delay: 0.8s; }
-
-        /* Khung ảnh với hiệu ứng tỏa sáng nhẹ */
+        /* Khung ảnh trắng có viền mỏng tinh tế */
         .img-frame {
             background: white;
-            padding: 12px;
-            box-shadow: 0 20px 60px rgba(74, 93, 74, 0.1); /* Bóng màu xanh lá nhạt */
-            margin-bottom: 35px;
+            padding: 10px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
             display: inline-block;
-            position: relative;
         }
 
         .couple-img {
             width: 100%;
-            max-width: 320px;
+            max-width: 300px;
             display: block;
-            filter: contrast(1.05); /* Tăng nhẹ độ tươi cho ảnh */
+            /* Giữ nguyên độ sáng ảnh cưới */
         }
 
         .role-text {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.8rem;
-            color: #a0a0a0;
-            letter-spacing: 6px;
+            color: #999;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .name-text {
-            font-size: 3.5rem;
-            color: #4a5d4a; /* Xanh lá sẫm sang trọng */
+            font-size: 2.8rem;
+            color: #4a5d4a; /* Màu xanh lá sẫm như mẫu */
             font-weight: 600;
             margin: 0;
         }
 
-        /* Animations */
-        @keyframes appear {
+        @keyframes softAppear {
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes dustMove {
-            from { background-position: 0 0; }
-            to { background-position: 500px 1000px; }
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
         @media (max-width: 768px) {
             .couple-layout { flex-direction: column; align-items: center; gap: 50px; }
-            .name-text { font-size: 2.8rem; }
-            .couple-img { max-width: 260px; }
-            body { overflow-y: auto; }
+            .top-right, .bottom-left { width: 150px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="gold-dust"></div>
-    
-    <script>
-        function createLeaf() {
-            const leaf = document.createElement('div');
-            leaf.innerHTML = '🌸'; // Bạn có thể thay bằng 🍃 hoặc ❀
-            leaf.classList.add('leaf');
-            leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.animationDuration = Math.random() * 5 + 5 + 's';
-            leaf.style.opacity = Math.random();
-            leaf.style.fontSize = Math.random() * 10 + 10 + 'px';
-            document.body.appendChild(leaf);
-            setTimeout(() => leaf.remove(), 10000);
-        }
-        setInterval(createLeaf, 300);
-    </script>
+    <img src="https://www.transparentpng.com/download/leaves/green-leaves-watercolor-png-free-11.png" class="decoration top-right" alt="decor">
+    <img src="https://www.transparentpng.com/download/leaves/green-leaves-watercolor-png-free-11.png" class="decoration bottom-left" alt="decor">
 
     <div class="main-container">
         <div class="couple-layout">
