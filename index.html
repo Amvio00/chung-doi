@@ -3,146 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đức Huy & Minh Trân Wedding</title>
+    <title>Lễ Thành Hôn Mai Đức Huy & Nguyễn Thị Minh Trân</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&family=Pattaya&family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&family=Pattaya&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
 
     <style>
-        :root { --dark-green: #344e1e; --bg-cream: #fcfbf7; }
-        body { margin: 0; font-family: 'Quicksand', sans-serif; background-color: var(--bg-cream); overflow-x: hidden; }
-
-        /* NỀN GẤU & MÈO CỐ ĐỊNH */
-        .bg-fixed {
-            position: fixed; inset: 0;
-            background-image: url('anhbia.jpg');
-            background-size: cover; background-position: center;
-            opacity: 0.15; z-index: 1; /* Luôn ở dưới cùng */
+        :root {
+            --primary-red-brown: #a94442; /* Màu đỏ hồng đặc trưng */
+            --warm-cream: #fdfdfd; /* Màu trắng kem ấm áp */
+            --dark-green: #30530f; /* Màu xanh lá cho nút bấm */
+            --accent-brown: #b28e72; /* Màu nâu ấm trang trí */
         }
 
-        /* MÀN HÌNH CHÀO (OVERLAY) */
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--primary-red-brown); /* Lớp nền màu đỏ hồng */
+            color: #4a4a4a;
+            overflow: hidden; /* Khóa cuộn lúc đầu */
+        }
+
+        /* --- 1. MÀN HÌNH CHÀO (STAGE 1 - Y CHANG THIẾT KẾ) --- */
         #wedding-overlay {
-            position: fixed; inset: 0;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('anhbia.jpg');
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 100; transition: 1s;
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: all 1s ease-in-out;
+            background-color: var(--primary-red-brown); /* Đảm bảo nền đỏ hồng */
+        }
+        
+        /* Hiệu ứng mờ ảo phía sau tấm thiệp */
+        #wedding-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('2.webp'); /* LỚP 2: NỀN HOA ĐẦY ĐỦ MỜ ẢO */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1; /* Độ mờ nhẹ cho nền đỏ hồng */
+            z-index: 1;
         }
 
         .cover-card {
-            background: white; padding: 40px; border-radius: 20px;
-            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px; width: 85%;
+            background-color: var(--warm-cream); /* TẤM THIỆP TRẮNG */
+            padding: 50px 30px;
+            width: 85%;
+            max-width: 500px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 2px dashed #b28e72; 
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        /* Họa tiết hoa cúc chìm bên trong tấm thiệp */
+        .cover-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('3..webp'); /* LỚP 3: HỌA TIẾT CẬN CẢNH MỜ TRONG THIỆP */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.06; /* Độ mờ cực nhẹ để không che chữ */
+            z-index: -1;
         }
 
-        .cover-card h1 { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--dark-green); margin: 10px 0; }
-        .btn-open { background: var(--dark-green); color: white; border: none; padding: 12px 40px; border-radius: 30px; cursor: pointer; margin-top: 20px; font-size: 1.1rem; }
+        .cover-card .icon-heart {
+            color: var(--primary-red-brown);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-        /* NỘI DUNG CHÍNH */
+        .cover-card h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.8rem;
+            margin: 15px 0;
+            color: var(--primary-red-brown);
+        }
+
+        .cover-card .divider {
+            color: var(--accent-brown);
+            letter-spacing: 5px;
+            margin: 10px 0;
+        }
+
+        .cover-card p.than-moi {
+            font-size: 1.1rem;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 30px 0 20px;
+        }
+
+        .btn-open {
+            background-color: var(--dark-green);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        /* --- 2. NỘI DUNG THIỆP CHÍNH (STAGE 2) --- */
         #main-invitation {
-            position: relative; z-index: 10; /* Luôn nằm trên lớp nền */
-            display: none; opacity: 0; transition: 1.5s;
-            max-width: 700px; margin: 0 auto; padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.5s;
+            background-color: var(--warm-cream);
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 30px 0; padding: 50px 20px;
-            border-radius: 25px; text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 80px 20px;
+            text-align: center;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background-image: url('hoa-cuc-nen.png'); /* Có thể thay bằng 3..webp mờ */
+            background-size: 150px;
+            background-repeat: repeat;
         }
 
-        .name-big { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--dark-green); margin: 10px 0; }
-        .title-gold { font-family: 'Pattaya', sans-serif; color: var(--dark-green); letter-spacing: 2px; }
-        .time-box { font-size: 3.5rem; font-weight: 700; color: var(--dark-green); margin: 15px 0; }
-        .map-frame { width: 100%; height: 350px; border-radius: 15px; border: none; margin-top: 20px; }
+        .name-calligraphy {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d88a8a;
+            margin: 5px 0;
+        }
 
-        /* HIỆU ỨNG CÁNH HOA */
-        .leaf { position: fixed; top: -10%; z-index: 1000; pointer-events: none; animation: fall linear infinite; }
-        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        .main-title {
+            font-family: 'Pattaya', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-red-brown);
+            margin-bottom: 40px;
+        }
+
+        .time-big {
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 380px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 1px solid #eee;
+        }
+
+        .btn-map {
+            display: inline-block;
+            background: var(--dark-green);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .name-calligraphy { font-size: 2.1rem; }
+            .cover-card h1 { font-size: 3.2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-fixed"></div>
-
     <div id="wedding-overlay">
-        <div class="cover-card">
-            <div style="font-size: 2.5rem; color: var(--dark-green)">❤</div>
-            <h1>Đức Huy & Minh Trân</h1>
-            <p>09 . 05 . 2026</p>
-            <p style="font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #888;">Thân Mời</p>
+        <div class="cover-card" data-aos="zoom-in">
+            <div class="icon-heart">❤</div>
+            <p style="letter-spacing: 3px; font-weight: 600;">WEDDING INVITATION</p>
+            <h1>Mai Đức Huy</h1>
+            <div class="divider">~ & ~</div>
+            <h1>Nguyễn Thị Minh Trân</h1>
+            <p style="font-size: 1.2rem; color: #555;">09 . 05 . 2026</p>
+            <p class="than-moi">Thân Mời</p>
             <button class="btn-open" onclick="startWedding()">Mở Thiệp</button>
         </div>
     </div>
 
     <div id="main-invitation">
         <div class="section" data-aos="fade-up">
-            <h2 class="title-gold">THÔNG TIN LỄ CƯỚI</h2>
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0;">
+            <p class="main-title">Thông Tin Lễ Cưới</p>
+            
+            <div class="family-info" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 50px;">
                 <div>
-                    <p><b>Nhà Trai</b></p>
-                    <p>Mai Văn Thọ<br>Vũ Thúy Phượng</p>
-                    <p style="font-size: 0.8rem; color: #777;">Phan Huy Ích, P. Tân Sơn, TP. HCM</p>
+                    <p style="letter-spacing: 1px; color: #888; font-weight: 600;">NHÀ TRAI</p>
+                    <div class="name-calligraphy">Mai Văn Thọ</div>
+                    <div class="name-calligraphy">Vũ Thúy Phượng</div>
+                    <p style="font-size: 0.85rem; color: #666;">Phan Huy Ích, P. Tân Sơn, TP. HCM</p>
                 </div>
                 <div>
-                    <p><b>Nhà Gái</b></p>
-                    <p>Nguyễn Quốc Hưng<br>Đoàn Thị Thu Tâm</p>
-                    <p style="font-size: 0.8rem; color: #777;">Xã Phước Hậu, Tỉnh Khánh Hòa</p>
+                    <p style="letter-spacing: 1px; color: #888; font-weight: 600;">NHÀ GÁI</p>
+                    <div class="name-calligraphy">Nguyễn Quốc Hưng</div>
+                    <div class="name-calligraphy">Đoàn Thị Thu Tâm</div>
+                    <p style="font-size: 0.85rem; color: #666;">Xã Phước Hậu, Tỉnh Khánh Hoà</p>
                 </div>
             </div>
-            <p style="font-style: italic;">Trân trọng báo tin Lễ Thành Hôn của con chúng tôi</p>
-            <h2 class="name-big">Mai Đức Huy</h2>
-            <p>(Út Nam)</p>
-            <div style="font-size: 1.5rem;">&</div>
-            <h2 class="name-big">Nguyễn Thị Minh Trân</h2>
-            <p>(Út Nữ)</p>
+
+            <p style="margin: 40px 0 10px; color: #666; font-style: italic;">TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</p>
+            <div class="name-calligraphy" style="font-size: 4rem; color: var(--primary-red-brown);">Mai Đức Huy</div>
+            <div style="font-size: 1.5rem; margin: 10px 0;">&</div>
+            <div class="name-calligraphy" style="font-size: 4rem; color: var(--primary-red-brown);">Nguyễn Thị Minh Trân</div>
         </div>
 
-        <div class="section" data-aos="fade-up">
-            <h2 class="title-gold">THỜI GIAN</h2>
-            <div class="time-box">18:30</div>
-            <p>Thứ Bảy, ngày 09 tháng 05 năm 2026</p>
-            <p>(Tức ngày 23/03 năm Bính Ngọ)</p>
-            <p style="margin-top: 20px;">Đón khách: <b>17:30</b> | Khai tiệc: <b>18:30</b></p>
+        <div class="section">
+            <div class="event-card" data-aos="fade-up" style="border: 1px solid #e0eadd; border-radius: 30px; padding: 40px; margin: 20px auto;">
+                <p class="main-title">Tiệc Cưới Tại</p>
+                <h2 style="font-size: 1.8rem; color: var(--primary-red-brown); margin-bottom: 5px;">PAVILLON TÂN SƠN NHẤT</h2>
+                <p style="margin-bottom: 30px;">202 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM</p>
+                
+                <div class="time-big">18:30</div>
+                <p style="font-size: 1.2rem; color: var(--primary-red-brown); margin: 10px 0;">THỨ BẢY | <strong>09</strong> | THÁNG 05 | 2026</p>
+                <p style="color: #777;">(Tức ngày 23 tháng 03 năm Bính Ngọ)</p>
+
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.123456789!2d106.6712345!3d10.8012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752926710433e1%3A0x6c6e7592477f185c!2zVHJ1bmcgVMOibSBI4buZaSBOZ2jhu4sgJiBUaeG7h2MgQ8aw4bubaSBQYXZpbGxvbiBUw6JuIFPGoW4gTmjhuqV0!5e0!3m2!1svi!2s!4v123456789" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                
+                <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3919.208182470712!2d106.67134377583861!3d10.795368989354492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d578659103%3A0x64f4347781a742e3!2zUGF2aWxsb24gVMOibiBTxqFuIE5o4bqldA!5e0!3m2!1svi!2s!4v1711880000000!5m2!1svi!2s2" target="_blank" class="btn-map">XEM BẢN ĐỒ CHI TIẾT</a>
+            </div>
         </div>
 
-        <div class="section" data-aos="fade-up">
-            <h2 class="title-gold">ĐỊA ĐIỂM</h2>
-            <p><b>PAVILLON TÂN SƠN NHẤT</b></p>
-            <p>202 Đ. Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM</p>
-            <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.123456789!2d106.6712345!3d10.8012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752926710433e1%3A0x6c6e7592477f185c!2zVHJ1bmcgVMOibSBI4buZaSBOZ2jhu4sgJiBUaeG7h2MgQ8aw4bubaSBQYXZpbGxvbiBUw6JuIFPGoW4gTmjhuqV0!5e0!3m2!1svi!2s!4v123456789"></iframe>
-        </div>
+        <footer style="padding: 60px; text-align: center; color: rgba(169, 68, 66, 0.7); font-size: 0.9rem; background-color: var(--warm-cream);">
+            <p>Sự hiện diện của quý vị là niềm vinh hạnh cho gia đình chúng tôi!</p>
+        </footer>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function createLeaf() {
-            const leaf = document.createElement('div');
-            leaf.classList.add('leaf');
-            leaf.innerHTML = '🌸';
-            leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.animationDuration = Math.random() * 3 + 2 + 's';
-            leaf.style.opacity = Math.random();
-            document.body.appendChild(leaf);
-            setTimeout(() => { leaf.remove(); }, 5000);
-        }
-        setInterval(createLeaf, 300);
+        // Khởi tạo hiệu ứng cánh hoa rơi/bling bling
+        var snowflakes = new Snowflakes({
+            color: '#b28e72', // Màu vàng nâu mờ của hoa cúc
+            count: 35, 
+            minSize: 8, 
+            maxSize: 20, 
+            wind: false 
+        });
 
         function startWedding() {
-            const overlay = document.getElementById('wedding-overlay');
-            const main = document.getElementById('main-invitation');
+            // Tắt hiệu ứng cánh hoa rơi/bling bling
+            snowflakes.destroy(); 
             
+            const overlay = document.getElementById('wedding-overlay');
+            const mainInvitation = document.getElementById('main-invitation');
+            
+            // Hiệu ứng chuyển động giống hệt thiết kế
+            overlay.style.transform = 'translateY(-100vh)'; // Trượt lên
             overlay.style.opacity = '0';
+            
             setTimeout(() => {
-                overlay.style.display = 'none';
-                main.style.display = 'block';
-                setTimeout(() => {
-                    main.style.opacity = '1';
-                    AOS.init({ duration: 1000, once: true });
-                }, 50);
-                document.body.style.overflow = 'auto';
-            }, 1000);
+                overlay.style.visibility = 'hidden';
+                mainInvitation.style.visibility = 'visible';
+                mainInvitation.style.opacity = '1';
+                document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+
+                AOS.init({ duration: 1200, once: true });
+            }, 800);
         }
     </script>
 </body>
