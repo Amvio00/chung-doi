@@ -13,8 +13,7 @@
             --primary-dark: #7a2b2d;
             --glass-white: rgba(255, 255, 255, 0.6); 
             --gold-line: #c4a484;
-            --text-green: #2d3826;
-            --bg-light: #fdfaf7;
+            --petal-color: rgba(255, 183, 197, 0.8); /* Màu cánh hoa hồng nhạt */
         }
 
         body, html {
@@ -22,86 +21,109 @@
             font-family: 'Quicksand', sans-serif;
             background-color: #fff;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         /* CANVAS CÁNH HOA */
         #petal-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Không ngăn cản click chuột */
+            z-index: 9999; /* Luôn nằm trên cùng */
         }
 
-        /* MÀN HÌNH CHÀO (GIỮ NGUYÊN) */
+        /* MÀN HÌNH CHÀO */
         #wedding-overlay {
             position: fixed; inset: 0;
             display: flex; justify-content: center; align-items: center;
             z-index: 1000;
-            background-image: url('image_3d4b1d.jpg'); /* Sử dụng ảnh bìa gấu trúc & mèo */
+            background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform;
         }
 
         .main-card {
-            position: relative; width: 85%; max-width: 420px;
-            padding: 10px; border: 1px solid var(--gold-line); border-radius: 25px;
+            position: relative;
+            width: 85%;
+            max-width: 420px;
+            padding: 10px;
+            border: 1px solid var(--gold-line);
+            border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .glass-content {
-            background: var(--glass-white); backdrop-filter: blur(12px);
-            padding: 45px 20px; border-radius: 20px; text-align: center;
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 45px 20px;
+            border-radius: 20px;
+            text-align: center;
         }
 
         .names {
-            font-family: 'Great Vibes', cursive; font-size: 3.3rem;
-            color: var(--text-green); margin: 8px 0; line-height: 1.1;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.3rem;
+            color: #2d3826; 
+            margin: 8px 0;
+            line-height: 1.1;
+        }
+
+        .date-text {
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            color: #444;
+            margin: 15px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 0;
+            display: inline-block;
+        }
+
+        .guest-box {
+            background: rgba(122, 43, 45, 0.12);
+            color: var(--primary-dark);
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 20px 0;
+            min-width: 180px;
         }
 
         .btn-open {
-            background-color: var(--primary-dark); color: white; border: none;
-            padding: 13px 50px; border-radius: 30px; font-size: 1rem;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
+            background-color: var(--primary-dark);
+            color: white;
+            border: none;
+            padding: 13px 50px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
         }
 
-        /* NỘI DUNG CHÍNH SAU KHI MỞ */
         #main-invitation { 
-            display: none; opacity: 0; background: var(--bg-light);
+            display: none;
+            opacity: 0; 
+            background: white; 
+            min-height: 100vh;
             transition: opacity 1.2s ease-out;
         }
 
-        .section { padding: 60px 20px; text-align: center; position: relative; overflow: hidden; }
-        
-        .section-bg-floral {
-            background-image: url('image_3b629f.jpg'); /* Background hoa mẫu đơn trắng */
-            background-size: cover; background-position: center;
+        .stage-exit {
+            opacity: 0 !important;
+            transform: scale(1.1) !important;
+            pointer-events: none;
         }
 
-        .couple-img {
-            width: 100%; max-width: 300px; border-radius: 10px;
-            border: 5px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .stage-enter {
+            opacity: 1 !important;
         }
-
-        .info-title { font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 30px; }
-        
-        /* Album grid */
-        .album-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px;
-        }
-        .album-grid img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 1/1; }
-
-        /* Sổ lưu bút */
-        .guestbook-form {
-            background: white; padding: 30px 20px; border-radius: 15px;
-            max-width: 500px; margin: 0 auto; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .guestbook-form input, .guestbook-form textarea {
-            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
-        }
-        .btn-send { background: var(--text-green); color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; }
-
-        .stage-exit { opacity: 0 !important; transform: scale(1.1) !important; pointer-events: none; }
-        .stage-enter { opacity: 1 !important; }
     </style>
 </head>
 <body>
@@ -109,57 +131,112 @@
     <canvas id="petal-canvas"></canvas>
 
     <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in">
+        <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
             <div class="glass-content">
                 <div style="color: var(--primary-dark); font-size: 1.5rem;">❤</div>
                 <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; font-weight: 600;">WEDDING INVITATION</p>
+                
                 <div class="names">Đức Huy</div>
                 <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes';">&</div>
                 <div class="names">Minh Trân</div>
-                <div style="margin: 15px 0; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); padding: 5px 0; display: inline-block; letter-spacing: 4px;">09 . 05 . 2026</div>
+                
+                <div class="date-text">09 . 05 . 2026</div>
+                
                 <p style="font-size: 0.8rem; color: #555; margin-top: 20px; font-weight: 600;">THÂN MỜI</p>
-                <div style="background: rgba(122, 43, 45, 0.12); color: var(--primary-dark); padding: 10px 25px; border-radius: 30px; display: inline-block; font-weight: 600; margin: 20px 0;">Anh Minh Khôi</div>
+                
+                <div class="guest-box">Anh Minh Khôi</div>
+                
+                <p style="font-size: 0.82rem; color: #444; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+                
                 <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
             </div>
         </div>
     </div>
 
     <div id="main-invitation">
-        
-        <section class="section section-bg-floral" data-aos="fade-up">
-            <h2 class="info-title">Wedding Announcement</h2>
-            <img src="image_3b623f.jpg" alt="Cô dâu chú rể" class="couple-img">
-            <div style="margin-top: 20px;">
-                <p style="font-weight: 600; color: var(--text-green);">Út Nam: <span style="font-size: 1.2rem;">Đức Huy</span></p>
-                <p style="font-weight: 600; color: var(--text-green);">Út Nữ: <span style="font-size: 1.2rem;">Minh Trân</span></p>
-            </div>
-        </section>
+        <div style="padding: 100px 20px; text-align: center;">
+             <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);">Happy Wedding</h1>
+             <p>Cảm ơn bạn đã tham gia cùng chúng tôi!</p>
+             <div style="height: 1000px;"></div> </div>
+    </div>
 
-        <section class="section" style="background: #fff;" data-aos="fade-up">
-            <img src="image_3b629f.jpg" style="width: 100%; max-width: 600px;" alt="Thông tin gia đình">
-        </section>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // --- 1. HIỆU ỨNG CÁNH HOA RƠI ---
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, petals = [];
 
-        <section class="section section-bg-floral" data-aos="fade-up">
-            <h2 class="info-title">Save Our Date</h2>
-            <div style="background: rgba(255,255,255,0.8); padding: 30px; display: inline-block; border-radius: 10px;">
-                <p style="font-size: 1.2rem; color: var(--primary-dark); font-weight: bold;">THỨ BẢY | 09 THÁNG 05 | 2026</p>
-                <p>(Tức ngày 23/03 năm Bính Ngọ)</p>
-                <hr style="border: 0.5px solid var(--gold-line); margin: 20px 0;">
-                <p>ĐÓN KHÁCH: 17:30</p>
-                <p>KHAI TIỆC: 18:30</p>
-            </div>
-        </section>
+        function initCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
 
-        <section class="section" data-aos="fade-up">
-            <h2 class="info-title">Album Ảnh Cưới</h2>
-            <div class="album-grid">
-                <img src="image_3b62be.jpg" alt="Wedding Photo 1">
-                <img src="image_3b62be.jpg" alt="Wedding Photo 2"> <img src="image_3b62be.jpg" alt="Wedding Photo 3">
-                <img src="image_3b62be.jpg" alt="Wedding Photo 4">
-            </div>
-        </section>
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
 
-        <section class="section" style="background: #fff;" data-aos="fade-up">
-            <h2 class="info-title">Địa Điểm Tổ Chức</h2>
-            <p style="font-weight: 600;">PAVILLON TÂN SƠN NHẤT</p>
-            <p>202 Đ. Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP
+        class Petal {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h - h;
+                this.size = Math.random() * 8 + 5;
+                this.speed = Math.random() * 1.5 + 1;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 2 - 1;
+                this.wind = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.y += this.speed;
+                this.x += this.wind;
+                this.angle += this.spin;
+                if (this.y > h) {
+                    this.y = -20;
+                    this.x = Math.random() * w;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle * Math.PI / 180);
+                ctx.beginPath();
+                // Vẽ hình elip giả làm cánh hoa
+                ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 192, 203, 0.7)';
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) petals.push(new Petal());
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, w, h);
+            petals.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // --- 2. LOGIC MỞ THIỆP ---
+        AOS.init({ duration: 1000, once: true });
+
+        function openWedding() {
+            const overlay = document.getElementById('wedding-overlay');
+            const mainContent = document.getElementById('main-invitation');
+            
+            overlay.classList.add('stage-exit');
+            mainContent.style.display = 'block';
+            
+            setTimeout(() => {
+                mainContent.classList.add('stage-enter');
+                window.scrollTo(0, 0);
+            }, 100);
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                AOS.refresh();
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
