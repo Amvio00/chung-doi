@@ -16,121 +16,183 @@
         }
 
         body, html {
-            margin: 0; padding: 0;
+            margin: 0; padding: 0; height: 100%;
             font-family: 'Quicksand', sans-serif;
             background-color: #fff;
             overflow-x: hidden;
         }
 
-        /* --- PHẦN 1: MÀN HÌNH CHÀO (OVERLAY) --- */
+        /* MÀN HÌNH CHÀO */
         #wedding-overlay {
             position: fixed; inset: 0;
             display: flex; justify-content: center; align-items: center;
-            z-index: 2000;
-            background-image: url('anhbia.jpg'); /* Đảm bảo bạn có file này trên GitHub */
+            z-index: 1000;
+            background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Transition mượt mà cho cả opacity và transform */
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform; /* Tối ưu hiệu năng */
         }
 
         .main-card {
-            position: relative; width: 85%; max-width: 420px;
-            padding: 10px; border: 1px solid var(--gold-line); border-radius: 25px;
+            position: relative;
+            width: 85%;
+            max-width: 420px;
+            padding: 10px;
+            border: 1px solid var(--gold-line);
+            border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 1s ease;
         }
 
         .glass-content {
             background: var(--glass-white);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 45px 20px; border-radius: 20px; text-align: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 45px 20px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon-heart { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 5px; }
+        
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.3rem;
+            color: #2d3826; 
+            margin: 8px 0;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .date-text {
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            color: #444;
+            margin: 15px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 0;
+            display: inline-block;
+        }
+
+        .guest-box {
+            background: rgba(122, 43, 45, 0.12);
+            color: var(--primary-dark);
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 20px 0;
+            min-width: 180px;
+            border: 0.5px solid rgba(122, 43, 45, 0.2);
         }
 
         .btn-open {
-            background-color: var(--primary-dark); color: white; border: none;
-            padding: 13px 50px; border-radius: 30px; cursor: pointer;
+            background-color: var(--primary-dark);
+            color: white;
+            border: none;
+            padding: 13px 50px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
             box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
-            font-weight: 600; font-size: 1rem;
+            transition: transform 0.3s ease;
         }
+        .btn-open:active { transform: scale(0.9); }
 
-        /* --- PHẦN 2: NỘI DUNG ẢNH DÀI --- */
+        /* NỘI DUNG CHÍNH - BAN ĐẦU ẨN */
         #main-invitation { 
-            display: none; opacity: 0;
+            opacity: 0; 
+            visibility: hidden;
+            background: white; 
+            min-height: 100vh;
             transition: opacity 1.2s ease-out;
         }
 
-        .wedding-page-img {
-            width: 100%;
-            display: block; /* Liền mạch không kẽ hở */
-            max-width: 800px;
-            margin: 0 auto;
+        /* Class kích hoạt khi bấm nút */
+        .stage-exit {
+            opacity: 0 !important;
+            transform: scale(1.1) !important; /* Phóng đại nhẹ khi tan biến */
+            pointer-events: none;
         }
 
-        /* Hiệu ứng chuyển cảnh */
-        .stage-exit { opacity: 0 !important; transform: scale(1.1) !important; pointer-events: none; }
-        .stage-enter { opacity: 1 !important; }
-
-        /* Hoa rơi */
-        .flower {
-            position: fixed; top: -10px; z-index: 1500;
-            pointer-events: none; animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% { top: -10%; transform: rotate(0deg); opacity: 0.8; }
-            100% { top: 110%; transform: rotate(360deg); opacity: 0; }
+        .stage-enter {
+            opacity: 1 !important;
+            visibility: visible !important;
         }
     </style>
 </head>
 <body>
 
     <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in">
+        <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
             <div class="glass-content">
-                <div style="color: var(--primary-dark); font-size: 1.5rem;">❤</div>
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555;">WEDDING INVITATION</p>
-                <div style="font-family: 'Great Vibes'; font-size: 3.3rem; color: #2d3826;">Đức Huy</div>
-                <div style="font-family: 'Great Vibes'; font-size: 1.6rem; color: var(--gold-line);">&</div>
-                <div style="font-family: 'Great Vibes'; font-size: 3.3rem; color: #2d3826;">Minh Trân</div>
-                <div style="margin: 15px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; display: inline-block; padding: 5px 10px; letter-spacing: 3px;">09.05.2026</div>
-                <p style="font-weight: 600; color: var(--primary-dark); margin-top: 20px;">Thân mời: Anh Minh Khôi</p>
+                <div class="icon-heart">❤</div>
+                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; margin-bottom: 0; font-weight: 600;">WEDDING INVITATION</p>
+                
+                <div class="names">Đức Huy</div>
+                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes'; margin: -5px 0;">&</div>
+                <div class="names">Minh Trân</div>
+                
+                <div class="date-text">09 . 05 . 2026</div>
+                
+                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; letter-spacing: 1px; font-weight: 600;">THÂN MỜI</p>
+                
+                <div class="guest-box">
+                    Anh Minh Khôi
+                </div>
+                
+                <p style="font-size: 0.82rem; color: #444; line-height: 1.4; font-weight: 500;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+                
                 <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
             </div>
         </div>
     </div>
 
     <div id="main-invitation">
-        <img src="image_3b623f.jpg" class="wedding-page-img">
-        <img src="image_3b629f.jpg" class="wedding-page-img">
-        <img src="image_3b62be.jpg" class="wedding-page-img">
-        <img src="image_3b62f8.jpg" class="wedding-page-img">
-        <img src="image_3b631c.jpg" class="wedding-page-img">
-        <img src="image_3b6622.jpg" class="wedding-page-img">
-        
-        <div style="text-align: center; padding: 80px 20px; background: #fff;">
-            <p style="font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--primary-dark);">Happy Wedding!</p>
-            <p style="color: #888;">Cảm ơn bạn đã chung vui cùng gia đình chúng tôi.</p>
-        </div>
+        <div style="padding: 100px 20px; text-align: center;">
+             <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);">Happy Wedding</h1>
+             <p>Cảm ơn bạn đã tham gia cùng chúng tôi!</p>
+             </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Khởi tạo AOS với các cài đặt tối ưu
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
 
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             const mainContent = document.getElementById('main-invitation');
             
+            // Bước 1: Cho màn hình chào mờ dần và phóng to nhẹ
             overlay.classList.add('stage-exit');
+            
+            // Bước 2: Cho nội dung chính bắt đầu hiện lên ngay lập tức nhưng chậm hơn
             mainContent.style.display = 'block';
             
+            // Dùng setTimeout cực ngắn để trình duyệt nhận diện thay đổi display trước khi chạy hiệu ứng opacity
             setTimeout(() => {
                 mainContent.classList.add('stage-enter');
-                overlay.style.display = 'none';
                 window.scrollTo(0, 0);
-                AOS.refresh();
-            }, 1000);
-            
-            setInterval(createFlower, 500);
-        }
+            }, 100);
 
-        function createFlower() {
-            const flower = document.createElement('div');
+            // Bước 3: Sau khi hiệu ứng hoàn tất, dọn dẹp overlay để không tốn tài nguyên
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+                AOS.refresh(); // Cập nhật lại hiệu ứng cho nội dung chính
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
