@@ -18,7 +18,8 @@
         body, html {
             margin: 0; padding: 0; height: 100%;
             font-family: 'Quicksand', sans-serif;
-            background-color: #fff; /* Chuyển nền body thành trắng để khớp với nội dung sau */
+            background-color: #fff;
+            overflow-x: hidden;
         }
 
         /* MÀN HÌNH CHÀO */
@@ -29,10 +30,10 @@
             background-image: url('anhbia.jpg'); 
             background-size: cover;
             background-position: center;
-            /* TĂNG THỜI GIAN VÀ KIỂU CHUYỂN CẢNH */
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                        filter 1.2s ease;
+            /* Transition mượt mà cho cả opacity và transform */
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform; /* Tối ưu hiệu năng */
         }
 
         .main-card {
@@ -43,7 +44,7 @@
             border: 1px solid var(--gold-line);
             border-radius: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            background: transparent;
+            transition: transform 1s ease;
         }
 
         .glass-content {
@@ -101,24 +102,29 @@
             cursor: pointer;
             margin-top: 15px;
             box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
-            transition: 0.3s;
+            transition: transform 0.3s ease;
         }
+        .btn-open:active { transform: scale(0.9); }
 
-        /* NỘI DUNG CHÍNH */
+        /* NỘI DUNG CHÍNH - BAN ĐẦU ẨN */
         #main-invitation { 
             opacity: 0; 
-            display: none; 
+            visibility: hidden;
             background: white; 
             min-height: 100vh;
-            transition: opacity 1s ease-in;
+            transition: opacity 1.2s ease-out;
         }
 
-        /* Lớp phủ để làm mờ dần khi chuyển cảnh */
-        .fade-out {
+        /* Class kích hoạt khi bấm nút */
+        .stage-exit {
             opacity: 0 !important;
-            transform: scale(1.05) !important;
-            filter: blur(10px);
+            transform: scale(1.1) !important; /* Phóng đại nhẹ khi tan biến */
             pointer-events: none;
+        }
+
+        .stage-enter {
+            opacity: 1 !important;
+            visibility: visible !important;
         }
     </style>
 </head>
@@ -151,34 +157,41 @@
 
     <div id="main-invitation">
         <div style="padding: 100px 20px; text-align: center;">
-            <h1 style="font-family: 'Great Vibes'; font-size: 3rem; color: var(--primary-dark);">Chào mừng bạn đến với tiệc cưới</h1>
-            <p>Nội dung chi tiết sẽ hiện ra ở đây...</p>
-        </div>
+             <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);">Happy Wedding</h1>
+             <p>Cảm ơn bạn đã tham gia cùng chúng tôi!</p>
+             </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        // Khởi tạo AOS với các cài đặt tối ưu
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
         function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             const mainContent = document.getElementById('main-invitation');
             
-            // 1. Thêm class để hiệu ứng transition bắt đầu chạy mượt
-            overlay.classList.add('fade-out');
+            // Bước 1: Cho màn hình chào mờ dần và phóng to nhẹ
+            overlay.classList.add('stage-exit');
             
-            // 2. Sau khi hiệu ứng mờ kết thúc (khoảng 800ms)
+            // Bước 2: Cho nội dung chính bắt đầu hiện lên ngay lập tức nhưng chậm hơn
+            mainContent.style.display = 'block';
+            
+            // Dùng setTimeout cực ngắn để trình duyệt nhận diện thay đổi display trước khi chạy hiệu ứng opacity
+            setTimeout(() => {
+                mainContent.classList.add('stage-enter');
+                window.scrollTo(0, 0);
+            }, 100);
+
+            // Bước 3: Sau khi hiệu ứng hoàn tất, dọn dẹp overlay để không tốn tài nguyên
             setTimeout(() => {
                 overlay.style.display = 'none';
-                
-                // 3. Hiển thị nội dung chính và làm nó hiện dần lên
-                mainContent.style.display = 'block';
-                setTimeout(() => {
-                    mainContent.style.opacity = '1';
-                    window.scrollTo(0, 0);
-                    // Khởi động lại AOS để các phần tử trong nội dung chính chạy animation
-                    AOS.refresh();
-                }, 50);
-            }, 1000);
+                document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+                AOS.refresh(); // Cập nhật lại hiệu ứng cho nội dung chính
+            }, 1500);
         }
     </script>
 </body>
