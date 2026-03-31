@@ -21,7 +21,7 @@
             font-family: 'Quicksand', sans-serif;
             color: #4a4a4a;
             overflow: hidden; /* Khóa cuộn lúc đầu */
-            background-image: url(anhbia.jpg'); /* Đã làm mờ thông minh */
+            background-image: url('anhbia.jpg'); /* Đã sửa dấu ngoặc đơn */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -31,8 +31,9 @@
         #wedding-overlay {
             position: fixed;
             inset: 0;
-            background: linear-gradient(rgba(247, 242, 237, 0.95), rgba(247, 242, 237, 0.95)),
-                        url('https://chungdoi.com/thiep-moi/duchuy-minhtran-panda-cat.jpg');
+            /* Đồng bộ ảnh nền với hiệu ứng làm mờ nhẹ khi chưa mở thiệp */
+            background: linear-gradient(rgba(247, 242, 237, 0.9), rgba(247, 242, 237, 0.9)),
+                        url('anhbia.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -50,7 +51,7 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            border: 2px dashed #b28e72; /* Đường viền trang trí ấm áp */
+            border: 2px dashed #b28e72; 
         }
 
         .cover-card h1 {
@@ -73,6 +74,11 @@
             transition: 0.3s;
         }
 
+        .btn-open:hover {
+            transform: scale(1.05);
+            background-color: #3e6b14;
+        }
+
         /* --- 2. NỘI DUNG CHÍNH --- */
         #main-invitation {
             opacity: 0;
@@ -82,12 +88,11 @@
 
         .section {
             max-width: 850px;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 80px 20px;
             text-align: center;
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            margin-top: 50px;
             box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
         }
 
@@ -149,6 +154,7 @@
             .family-info { grid-template-columns: 1fr; gap: 30px; }
             .name-calligraphy { font-size: 2.1rem; }
             .cover-card h1 { font-size: 2.9rem; }
+            .time-big { font-size: 3rem; }
         }
     </style>
 </head>
@@ -156,10 +162,10 @@
 
     <div id="wedding-overlay">
         <div class="cover-card" data-aos="zoom-in">
-            <div style="font-size: 2rem;">🐾💖🐾</div>
-            <p style="letter-spacing: 3px; margin-top: 10px;">WEDDING INVITATION</p>
+            <div style="font-size: 2.5rem;">🐾💖🐾</div>
+            <p style="letter-spacing: 3px; margin-top: 10px; font-weight: 600;">WEDDING INVITATION</p>
             <h1>Đức Huy & Minh Trân</h1>
-            <p>09 . 05 . 2026</p>
+            <p style="font-size: 1.2rem;">09 . 05 . 2026</p>
             <button class="btn-open" onclick="startWedding()">Mở Thiệp</button>
         </div>
     </div>
@@ -170,45 +176,47 @@
             
             <div class="family-info">
                 <div>
-                    <p style="letter-spacing: 1px; color: #888;">NHÀ TRAI</p>
+                    <p style="letter-spacing: 1px; color: #888; font-weight: 600;">NHÀ TRAI</p>
                     <div class="name-calligraphy">Mai Văn Thọ</div>
                     <div class="name-calligraphy">Vũ Thúy Phượng</div>
-                    <p style="font-size: 0.8rem; color: #666;">Phan Huy Ích, P. Tân Sơn, TP. HCM</p>
+                    <p style="font-size: 0.85rem; color: #666;">Phan Huy Ích, P. Tân Sơn, TP. HCM</p>
                 </div>
                 <div>
-                    <p style="letter-spacing: 1px; color: #888;">NHÀ GÁI</p>
+                    <p style="letter-spacing: 1px; color: #888; font-weight: 600;">NHÀ GÁI</p>
                     <div class="name-calligraphy">Nguyễn Quốc Hưng</div>
                     <div class="name-calligraphy">Đoàn Thị Thu Tâm</div>
-                    <p style="font-size: 0.8rem; color: #666;">Xã Phước Hậu, Tỉnh Khánh Hoà</p>
+                    <p style="font-size: 0.85rem; color: #666;">Xã Phước Hậu, Tỉnh Khánh Hoà</p>
                 </div>
             </div>
 
-            <p style="margin: 40px 0 10px; color: #666;">TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA</p>
-            <div class="name-calligraphy" style="font-size: 4.2rem; color: var(--dark-brown);">Đức Huy & Minh Trân</div>
+            <p style="margin: 40px 0 10px; color: #666; font-style: italic;">TRÂN TRỌNG BÁO TIN LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</p>
+            <div class="name-calligraphy" style="font-size: 4rem; color: var(--dark-brown);">Mai Đức Huy</div>
+            <div style="font-size: 1.5rem; margin: 10px 0;">&</div>
+            <div class="name-calligraphy" style="font-size: 4rem; color: var(--dark-brown);">Nguyễn Thị Minh Trân</div>
         </div>
 
         <div class="section">
             <div class="event-card" data-aos="fade-up">
                 <p class="main-title">Tiệc Cưới Tại</p>
-                <h2 style="font-size: 1.6rem; color: var(--dark-brown);">PAVILLON TÂN SƠN NHẤT</h2>
-                <p>202 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM</p>
+                <h2 style="font-size: 1.8rem; color: var(--dark-brown); margin-bottom: 5px;">PAVILLON TÂN SƠN NHẤT</h2>
+                <p style="margin-bottom: 30px;">202 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM</p>
                 
                 <div class="time-big">18:30</div>
-                <p style="font-size: 1.1rem; color: var(--dark-brown);">THỨ BẢY | <strong>09</strong> | THÁNG 05 | 2026</p>
-                <p style="color: #777;">(Tức ngày 23/03 năm Bính Ngọ)</p>
+                <p style="font-size: 1.2rem; color: var(--dark-brown); margin: 10px 0;">THỨ BẢY | <strong>09</strong> | THÁNG 05 | 2026</p>
+                <p style="color: #777;">(Tức ngày 23 tháng 03 năm Bính Ngọ)</p>
 
                 <div class="map-frame">
                     <iframe 
-                        src="http://googleusercontent.com/maps.google.com/7" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.18341604925!2d106.66699197583853!3d10.797257958807802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175292670e3037f%3A0x6739324546685a49!2zVHJ1bmcgVMOibSBI4buZaSBOZ2jhu4sgJiBUaeG7h2MgQ8aw4bubaSBQYXZpbGxvbiBUw6JuIFPGoW4gTmjhuqV0!5e0!3m2!1svi!2s!4v1711883100000!5m2!1svi!2s" 
                         width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
                 
-                <a href="http://googleusercontent.com/maps.google.com/8" target="_blank" class="btn-map">CHỈ ĐƯỜNG TRÊN GOOGLE MAPS</a>
+                <a href="https://maps.app.goo.gl/uX8q9pC7A3k7p7uM6" target="_blank" class="btn-map">XEM BẢN ĐỒ CHI TIẾT</a>
             </div>
         </div>
 
-        <footer style="padding: 60px; text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+        <footer style="padding: 60px; text-align: center; color: white; font-size: 1rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">
             <p>Sự hiện diện của quý vị là niềm vinh hạnh cho gia đình chúng tôi!</p>
         </footer>
     </div>
@@ -216,20 +224,20 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         function startWedding() {
-            // Hiệu ứng biến mất của overlay
             const overlay = document.getElementById('wedding-overlay');
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.visibility = 'hidden';
                 
-                // Hiện nội dung chính
                 const main = document.getElementById('main-invitation');
                 main.style.visibility = 'visible';
                 main.style.opacity = '1';
                 document.body.style.overflow = 'auto';
                 
-                // Kích hoạt hiệu ứng trượt AOS
-                AOS.init({ duration: 1200, once: true });
+                AOS.init({ 
+                    duration: 1200, 
+                    once: true 
+                });
             }, 800);
         }
     </script>
