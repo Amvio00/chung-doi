@@ -5,24 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lễ Thành Hôn Mai Đức Huy & Nguyễn Thị Minh Trân</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&family=Pattaya&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --dark-green-bg: #1a2e05; /* Tông xanh đậm từ ảnh nền */
-            --soft-white: #fdfdfd;
-            --text-gold: #b28e72;
+            --primary-dark: #7a2b2d;
+            --glass-white: rgba(255, 255, 255, 0.85); /* Nền trắng mờ */
         }
 
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: 'Quicksand', sans-serif;
-            background-color: var(--dark-green-bg);
-            overflow: hidden;
         }
 
-        /* NỀN XANH SỬ DỤNG ANHBIA.JPG */
+        /* NỀN TOÀN TRANG SỬ DỤNG ANHBIA.JPG */
         #wedding-overlay {
             position: fixed;
             inset: 0;
@@ -30,106 +29,115 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            background-image: url('anhbia.jpg'); /* Sử dụng ảnh gốc của bạn */
+            background-image: url('anhbia.jpg'); /* Đảm bảo file này có trên GitHub */
             background-size: cover;
             background-position: center;
-            transition: 1s ease-in-out;
+            transition: transform 1s ease-in-out, opacity 1s;
         }
 
-        /* KHUNG TRẮNG NỘI DUNG */
-        .cover-card {
-            background-color: var(--soft-white);
-            padding: 40px 25px;
-            width: 88%;
-            max-width: 480px;
-            border-radius: 15px;
+        /* KHUNG THIỆP DẠNG TRẮNG MỜ (GLASSMORPHISM) */
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px); /* Hiệu ứng làm mờ hình nền phía sau */
+            -webkit-backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            width: 85%;
+            max-width: 450px;
+            border-radius: 30px; /* Bo góc tròn như hình mẫu */
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
-            overflow: hidden;
         }
 
-        /* HOA ĐÀO 3.WEBP THAY THẾ HOA XANH */
-        .cover-card::before {
+        /* HỌA TIẾT GÓC MẢNH NHƯ HÌNH MẪU */
+        .glass-card::before, .glass-card::after {
             content: "";
             position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 180px;
-            height: 220px;
-            background-image: url('3.webp'); /* File hoa đào bạn cung cấp */
+            width: 80px;
+            height: 80px;
             background-size: contain;
             background-repeat: no-repeat;
-            opacity: 0.9;
-            z-index: 1;
+            opacity: 0.6;
+        }
+        .glass-card::before {
+            top: 15px; left: 15px;
+            background-image: url('https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-15.png'); /* Họa tiết lá vàng mảnh */
+        }
+        .glass-card::after {
+            bottom: 15px; right: 15px;
+            transform: rotate(180deg);
+            background-image: url('https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-15.png');
         }
 
-        .content-wrap { position: relative; z-index: 2; }
-
-        .icon-heart { color: var(--dark-green-bg); font-size: 2rem; margin-bottom: 10px; }
+        .icon-heart { color: var(--primary-dark); font-size: 1.5rem; margin-bottom: 10px; }
         
         .names {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.2rem;
-            color: var(--dark-green-bg);
+            font-size: 3.5rem;
+            color: #3e4a36; /* Màu xanh đen sang trọng */
             margin: 10px 0;
+            line-height: 1.2;
         }
 
-        /* Ô NHẬP TÊN KHÁCH MỜI GIỐNG THIỆP HỒNG */
-        .guest-box {
-            background: rgba(26, 46, 5, 0.05);
-            border-radius: 10px;
-            padding: 10px 20px;
-            margin: 20px auto;
-            display: inline-block;
-            min-width: 200px;
-            color: #d04b5a; /* Giữ tông hồng cho tên khách để nổi bật */
-            font-weight: 600;
+        .date-text {
+            letter-spacing: 3px;
             font-size: 1.1rem;
+            color: #666;
+            margin: 20px 0 5px;
+        }
+
+        .guest-tag {
+            background: rgba(122, 43, 45, 0.1);
+            color: var(--primary-dark);
+            padding: 8px 25px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 15px 0;
+            min-width: 180px;
         }
 
         .btn-open {
-            background-color: #7a2b2d; /* Màu đỏ mận của hoa đào */
+            background-color: var(--primary-dark);
             color: white;
             border: none;
-            padding: 12px 45px;
-            border-radius: 25px;
-            cursor: pointer;
+            padding: 14px 50px;
+            border-radius: 30px;
             font-size: 1.1rem;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
         }
 
-        /* PHẦN CHI TIẾT SAU KHI MỞ */
-        #main-content {
-            display: none;
-            background: var(--soft-white);
-            min-height: 100vh;
-            padding: 20px;
-        }
+        .btn-open:hover { transform: scale(1.05); background-color: #5a1f21; }
+
+        /* NỘI DUNG CHÍNH */
+        #main-content { display: none; }
     </style>
 </head>
 <body>
 
     <div id="wedding-overlay">
-        <div class="cover-card" data-aos="zoom-in">
-            <div class="content-wrap">
-                <div class="icon-heart">❤</div>
-                <div class="names">Đức Huy</div>
-                <div style="font-size: 1.5rem; color: var(--text-gold);">&</div>
-                <div class="names">Minh Trân</div>
-                
-                <p style="margin: 15px 0 5px; letter-spacing: 2px;">9 THÁNG 5, 2026</p>
-                <p style="font-size: 0.9rem; color: #888;">THÂN MỜI</p>
-                
-                <div class="guest-box">
-                    Anh Minh Khôi
-                </div>
-                
-                <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">đến dự buổi tiệc chung vui cùng gia đình</p>
-                
-                <button class="btn-open" onclick="openCard()">Mở thiệp</button>
+        <div class="glass-card" data-aos="zoom-in" data-aos-duration="1500">
+            <div class="icon-heart">❤</div>
+            
+            <div class="names">Đức Huy</div>
+            <div style="font-size: 1.8rem; color: #b28e72; font-family: 'Great Vibes';">&</div>
+            <div class="names">Minh Trân</div>
+            
+            <div class="date-text">09 . 05 . 2026</div>
+            
+            <p style="font-size: 0.8rem; color: #888; letter-spacing: 2px; margin-top: 25px;">THÂN MỜI</p>
+            
+            <div class="guest-tag">
+                Anh Minh Khôi
             </div>
+            
+            <p style="font-size: 0.85rem; color: #777;">đến dự buổi tiệc chung vui cùng gia đình</p>
+            
+            <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
         </div>
     </div>
 
@@ -139,14 +147,14 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
-        function openCard() {
+        function openWedding() {
             const overlay = document.getElementById('wedding-overlay');
             overlay.style.opacity = '0';
-            overlay.style.transform = 'scale(1.2)';
+            overlay.style.transform = 'translateY(-100%)';
             setTimeout(() => {
                 overlay.style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.body.style.overflow = 'auto';
+                window.scrollTo(0, 0);
             }, 1000);
         }
     </script>
