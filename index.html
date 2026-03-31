@@ -9,11 +9,10 @@
         body, html {
             margin: 0; padding: 0; height: 100%;
             font-family: 'Playfair Display', serif;
-            background-color: #ffffff; /* Nền trắng trong trẻo */
+            background-color: #faf9f6; /* Màu trắng kem nhẹ nhàng */
             overflow-x: hidden;
         }
 
-        /* Container chính với họa tiết hoa lá ở góc */
         .main-container {
             min-height: 100vh;
             display: flex;
@@ -21,21 +20,17 @@
             justify-content: center;
             position: relative;
             padding: 40px 20px;
-            /* Giả lập họa tiết hoa lá góc bằng gradient và mask hoặc bạn có thể thay bằng ảnh thật */
-            background: 
-                radial-gradient(circle at top right, rgba(74, 93, 74, 0.05), transparent 400px),
-                radial-gradient(circle at bottom left, rgba(74, 93, 74, 0.05), transparent 400px);
         }
 
-        /* Họa tiết lá xanh trang trí góc (giả lập phong cách watercolor) */
-        .decoration {
+        /* --- VẼ LÁ WATERCOLOR BẰNG SVG (KHÔNG LO LỖI ẢNH) --- */
+        .decor-svg {
             position: absolute;
             z-index: 1;
-            opacity: 0.6;
+            opacity: 0.15; /* Độ mờ vừa phải để không làm chìm ảnh cưới */
             pointer-events: none;
         }
-        .top-right { top: 0; right: 0; width: 300px; }
-        .bottom-left { bottom: 0; left: 0; width: 250px; transform: rotate(180deg); }
+        .top-right { top: -20px; right: -20px; width: 400px; transform: rotate(15deg); }
+        .bottom-left { bottom: -50px; left: -50px; width: 350px; transform: rotate(195deg); }
 
         .couple-layout {
             display: flex;
@@ -55,37 +50,34 @@
             transform: translateY(30px);
             animation: softAppear 2s ease-out forwards;
         }
-        .codau-block { animation-delay: 0.6s; }
+        .codau-block { animation-delay: 0.8s; }
 
-        /* Khung ảnh trắng có viền mỏng tinh tế */
         .img-frame {
             background: white;
-            padding: 10px;
-            border: 1px solid #f0f0f0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
+            padding: 12px;
+            box-shadow: 0 15px 45px rgba(74, 93, 74, 0.08); /* Đổ bóng màu xanh lá nhẹ */
+            margin-bottom: 30px;
             display: inline-block;
         }
 
         .couple-img {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             display: block;
-            /* Giữ nguyên độ sáng ảnh cưới */
         }
 
         .role-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            color: #999;
-            letter-spacing: 4px;
+            font-size: 0.85rem;
+            color: #a0a0a0;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .name-text {
-            font-size: 2.8rem;
-            color: #4a5d4a; /* Màu xanh lá sẫm như mẫu */
+            font-size: 3.2rem;
+            color: #4a5d4a; /* Xanh sẫm đúng yêu cầu */
             font-weight: 600;
             margin: 0;
         }
@@ -95,18 +87,26 @@
         }
 
         @media (max-width: 768px) {
-            .couple-layout { flex-direction: column; align-items: center; gap: 50px; }
-            .top-right, .bottom-left { width: 150px; }
+            .couple-layout { flex-direction: column; align-items: center; gap: 60px; }
+            .top-right { width: 250px; }
+            .bottom-left { width: 200px; }
+            .name-text { font-size: 2.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <img src="https://www.transparentpng.com/download/leaves/green-leaves-watercolor-png-free-11.png" class="decoration top-right" alt="decor">
-    <img src="https://www.transparentpng.com/download/leaves/green-leaves-watercolor-png-free-11.png" class="decoration bottom-left" alt="decor">
+    <svg class="decor-svg top-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#4a5d4a" d="M40,-62.7C52.2,-54.5,62.5,-44.4,69.5,-32.3C76.5,-20.2,80.3,-6.1,78.2,7.5C76,21,68,34,57.7,44.7C47.4,55.5,34.8,63.9,21.1,68.2C7.4,72.5,-7.4,72.7,-21.8,68.8C-36.2,64.9,-50.2,56.9,-60.8,45.4C-71.4,33.9,-78.6,18.9,-79.8,3.5C-81,-11.9,-76.2,-27.7,-66.7,-40.1C-57.2,-52.5,-43,-61.5,-29.4,-68.8C-15.8,-76.1,-2.9,-81.7,9.6,-79.4C22.1,-77.2,40,-62.7,40,-62.7Z" transform="translate(100 100)" />
+    </svg>
+
+    <svg class="decor-svg bottom-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#4a5d4a" d="M36.7,-60.4C47.6,-54.2,56.5,-44.1,62.4,-32.5C68.3,-20.8,71.2,-7.7,70.5,5.3C69.7,18.3,65.3,31.2,57.4,42C49.5,52.8,38.1,61.4,25.4,65.7C12.8,70, -1.1,70,-14.8,66.6C-28.5,63.2,-41.9,56.4,-52.1,46.1C-62.3,35.8,-69.3,22,-71.4,7.4C-73.5,-7.1,-70.7,-22.4,-62.8,-35C-54.9,-47.5,-42,-57.4,-29.1,-62.5C-16.1,-67.6,-3,-67.9,9.6,-65.3C22.2,-62.7,36.7,-60.4,36.7,-60.4Z" transform="translate(100 100)" />
+    </svg>
 
     <div class="main-container">
         <div class="couple-layout">
+            
             <div class="person-block chure-block">
                 <div class="img-frame">
                     <img src="chure.webp" alt="Đức Huy" class="couple-img">
@@ -122,6 +122,7 @@
                 <div class="role-text">Cô Dâu</div>
                 <div class="name-text">Minh Trân</div>
             </div>
+
         </div>
     </div>
 
